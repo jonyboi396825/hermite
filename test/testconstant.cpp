@@ -1,0 +1,101 @@
+#include <gtest/gtest.h>
+
+#include "hermite/constants.hpp"
+
+using namespace hermite;
+
+TEST(Constant, Basis00) {
+  EXPECT_NEAR(h00(0), 1, 0.00001);
+  EXPECT_NEAR(h00(1), 0, 0.00001);
+  EXPECT_NEAR(h00(-1), -4, 0.00001);
+  EXPECT_NEAR(h00(5.22), 203.728096, 0.00001);
+  EXPECT_NEAR(h00(-5.5), -422.5, 0.00001);
+}
+
+TEST(Constant, Basis10) {
+  EXPECT_NEAR(h10(0), 0, 0.00001);
+  EXPECT_NEAR(h10(1), 0, 0.00001);
+  EXPECT_NEAR(h10(-1), -4, 0.00001);
+  EXPECT_NEAR(h10(5.22), 92.959848, 0.00001);
+  EXPECT_NEAR(h10(-5.5), -232.375, 0.00001);
+}
+
+TEST(Constant, Basis01) {
+  EXPECT_NEAR(h01(0), 0, 0.00001);
+  EXPECT_NEAR(h01(1), 1, 0.00001);
+  EXPECT_NEAR(h01(-1), 5, 0.00001);
+  EXPECT_NEAR(h01(5.22), -202.728096, 0.00001);
+  EXPECT_NEAR(h01(-5.5), 423.5, 0.00001);
+}
+
+TEST(Constant, Basis11) {
+  EXPECT_NEAR(h11(0), 0, 0.00001);
+  EXPECT_NEAR(h11(1), 0, 0.00001);
+  EXPECT_NEAR(h11(-1), -2, 0.00001);
+  EXPECT_NEAR(h11(5.22), 114.988248, 0.00001);
+  EXPECT_NEAR(h11(-5.5), -196.625, 0.00001);
+}
+
+TEST(Constant, Basis00D) {
+  EXPECT_NEAR(h00d(0), 0, 0.00001);
+  EXPECT_NEAR(h00d(1), 0, 0.00001);
+  EXPECT_NEAR(h00d(-1), 12, 0.00001);
+  EXPECT_NEAR(h00d(5.22), 132.1704, 0.00001);
+  EXPECT_NEAR(h00d(-5.5), 214.5, 0.00001);
+}
+
+TEST(Constant, Basis10D) {
+  EXPECT_NEAR(h10d(0), 1, 0.00001);
+  EXPECT_NEAR(h10d(1), 0, 0.00001);
+  EXPECT_NEAR(h10d(-1), 8, 0.00001);
+  EXPECT_NEAR(h10d(5.22), 61.8652, 0.00001);
+  EXPECT_NEAR(h10d(-5.5), 113.75, 0.00001);
+}
+
+TEST(Constant, Basis01D) {
+  EXPECT_NEAR(h01d(0), 0, 0.00001);
+  EXPECT_NEAR(h01d(1), 0, 0.00001);
+  EXPECT_NEAR(h01d(-1), -12, 0.00001);
+  EXPECT_NEAR(h01d(5.22), -132.1704, 0.00001);
+  EXPECT_NEAR(h01d(-5.5), -214.5, 0.00001);
+}
+
+TEST(Constant, Basis11D) {
+  EXPECT_NEAR(h11d(0), 0, 0.00001);
+  EXPECT_NEAR(h11d(1), 1, 0.00001);
+  EXPECT_NEAR(h11d(-1), 5, 0.00001);
+  EXPECT_NEAR(h11d(5.22), 71.3052, 0.00001);
+  EXPECT_NEAR(h11d(-5.5), 101.75, 0.00001);
+}
+
+TEST(Constant, Basis00DD) {
+  EXPECT_NEAR(h00dd(0), -6, 0.00001);
+  EXPECT_NEAR(h00dd(1), 6, 0.00001);
+  EXPECT_NEAR(h00dd(-1), -18, 0.00001);
+  EXPECT_NEAR(h00dd(5.22), 56.64, 0.00001);
+  EXPECT_NEAR(h00dd(-5.5), -72, 0.00001);
+}
+
+TEST(Constant, Basis10DD) {
+  EXPECT_NEAR(h10dd(0), -4, 0.00001);
+  EXPECT_NEAR(h10dd(1), 2, 0.00001);
+  EXPECT_NEAR(h10dd(-1), -10, 0.00001);
+  EXPECT_NEAR(h10dd(5.22), 27.32, 0.00001);
+  EXPECT_NEAR(h10dd(-5.5), -37, 0.00001);
+}
+
+TEST(Constant, Basis01DD) {
+  EXPECT_NEAR(h01dd(0), 6, 0.00001);
+  EXPECT_NEAR(h01dd(1), -6, 0.00001);
+  EXPECT_NEAR(h01dd(-1), 18, 0.00001);
+  EXPECT_NEAR(h01dd(5.22), -56.64, 0.00001);
+  EXPECT_NEAR(h01dd(-5.5), 72, 0.00001);
+}
+
+TEST(Constant, Basis11DD) {
+  EXPECT_NEAR(h11dd(0), -2, 0.00001);
+  EXPECT_NEAR(h11dd(1), 4, 0.00001);
+  EXPECT_NEAR(h11dd(-1), -8, 0.00001);
+  EXPECT_NEAR(h11dd(5.22), 29.32, 0.00001);
+  EXPECT_NEAR(h11dd(-5.5), -35, 0.00001);
+}
