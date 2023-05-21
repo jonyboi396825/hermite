@@ -82,7 +82,8 @@ public:
    *
    * Same as calling operator()()
    *
-   * @note If t is outside of [0, 1], then returns a zero vector.
+   * @note If t is outside of [0, 1], then it still calculates the vector at
+   * that time.
    *
    * @param t Time
    *
@@ -90,11 +91,6 @@ public:
    */
   Vector<D> getPos(const double t) const override {
     Vector<D> res;
-
-    if (t < 0 || t > 1) {
-      return res;
-    }
-
     res = m_p0 * h00(t) + m_v0 * h10(t) + m_p1 * h01(t) + m_v1 * h11(t);
     return res;
   }
@@ -102,7 +98,8 @@ public:
   /**
    * @brief Gets velocity at a certain time
    *
-   * @note If t is outside of [0, 1], then returns a zero vector.
+   * @note If t is outside of [0, 1], then it still calculates the vector at
+   * that time.
    *
    * @param t Time
    *
@@ -110,11 +107,6 @@ public:
    */
   Vector<D> getVel(const double t) const override {
     Vector<D> res;
-
-    if (t < 0 || t > 1) {
-      return res;
-    }
-
     res = m_p0 * h00d(t) + m_v0 * h10d(t) + m_p1 * h01d(t) + m_v1 * h11d(t);
     return res;
   }
@@ -122,7 +114,8 @@ public:
   /**
    * @brief Gets acceleration of the function at a certain time
    *
-   * @note If t is outside of [0, 1], then returns a zero vector.
+   * @note If t is outside of [0, 1], then it still calculates the vector at
+   * that time.
    *
    * @param t Time
    *
@@ -130,11 +123,6 @@ public:
    */
   Vector<D> getAcc(const double t) const override {
     Vector<D> res;
-
-    if (t < 0 || t > 1) {
-      return res;
-    }
-
     res = m_p0 * h00dd(t) + m_v0 * h10dd(t) + m_p1 * h01dd(t) + m_v1 * h11dd(t);
     return res;
   }

@@ -74,7 +74,8 @@ public:
    *
    * Same as calling operator()()
    *
-   * @note If t is outside of the given interval, then returns a zero vector.
+   * @note If t is outside of the given interval, then it still calculates
+   * vector.
    *
    * @param t Time
    *
@@ -82,11 +83,6 @@ public:
    */
   Vector<D> getPos(const double t) const override {
     Vector<D> res;
-
-    if (t < m_lower || t > m_upper) {
-      return res;
-    }
-
     const double tNew = (t - m_lower) / (m_upper - m_lower);
     res = m_unit.getPos(tNew);
     return res;
@@ -95,7 +91,8 @@ public:
   /**
    * @brief Gets velocity at a certain time
    *
-   * @note If t is outside of the given interval, then returns a zero vector.
+   * @note If t is outside of the given interval, then it still calculates
+   * vector.
    *
    * @param t Time
    *
@@ -103,11 +100,6 @@ public:
    */
   Vector<D> getVel(const double t) const override {
     Vector<D> res;
-
-    if (t < m_lower || t > m_upper) {
-      return res;
-    }
-
     const double tNew = (t - m_lower) / (m_upper - m_lower);
     res = m_unit.getVel(tNew) * (1 / (m_upper - m_lower)); // multiply by chain
     return res;
@@ -116,7 +108,8 @@ public:
   /**
    * @brief Gets acceleration of the function at a certain time
    *
-   * @note If t is outside of the given interval, then returns a zero vector.
+   * @note If t is outside of the given interval, then it still calculates
+   * vector.
    *
    * @param t Time
    *
@@ -124,11 +117,6 @@ public:
    */
   Vector<D> getAcc(const double t) const override {
     Vector<D> res;
-
-    if (t < m_lower || t > m_upper) {
-      return res;
-    }
-
     const double tNew = (t - m_lower) / (m_upper - m_lower);
     res = m_unit.getAcc(tNew) * (1 / (m_upper - m_lower)) *
           (1 / (m_upper -
