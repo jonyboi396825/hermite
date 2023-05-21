@@ -4,6 +4,8 @@
  * Constants and constant expressions
  */
 
+#pragma once
+
 namespace hermite {
 /**
  * @brief First Hermite basis function

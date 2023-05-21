@@ -10,6 +10,7 @@
 #include <cstddef>
 
 #include "base.hpp"
+#include "constants.hpp"
 #include "hermite_unit.hpp"
 
 namespace hermite {
@@ -90,7 +91,7 @@ public:
     }
 
     const double tNew = (t - m_lower) / (m_upper - m_lower);
-    res = m_unit.GetPos(tNew);
+    res = m_unit.getPos(tNew);
     return res;
   }
 
@@ -111,7 +112,7 @@ public:
     }
 
     const double tNew = (t - m_lower) / (m_upper - m_lower);
-    res = m_unit.GetVel(tNew);
+    res = m_unit.getVel(tNew) * (1 / (m_upper - m_lower)); // multiply by chain
     return res;
   }
 
@@ -132,7 +133,10 @@ public:
     }
 
     const double tNew = (t - m_lower) / (m_upper - m_lower);
-    res = m_unit.GetAcc(tNew);
+    res = m_unit.getAcc(tNew) * (1 / (m_upper - m_lower)) *
+          (1 / (m_upper -
+                m_lower)); // multiply by chain; don't need to add product rule
+                           // because second derivative of tNew(t) = 0
     return res;
   }
 
