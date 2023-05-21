@@ -41,7 +41,10 @@ using svector::magn;
  * rest of the digits. This is fine for most cases, as the time does not need to
  * be super precise.
  *
- * Hermite curves allow for fast local control, meaning that a
+ * Hermite curves allow for fast local control, meaning that inserting and
+ * removing points is quick. However, it only provides C1 continuity, which
+ * means that there may be high jerk at knot points (as acceleration is
+ * discontinuous).
  */
 template <std::size_t D> class Hermite : public BaseInterpol<D> {
 public:
