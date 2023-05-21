@@ -91,15 +91,65 @@ public:
    * @note If the waypoint's time exists (rounded according to the multiplier),
    * then this method does nothing.
    */
-  void insert(const Pose<D> waypoint) {
-    auto tRounded = roundTime(waypoint.getTime());
-
-    // check if already exists
-    if (m_waypoints.find(tRounded) != m_waypoints.end()) {
+  void insert(const Pose<D> &waypoint) {
+    if (exists(waypoint)) {
       return;
     }
 
+    auto tRounded = roundTime(waypoint.getTime());
     m_waypoints[tRounded] = waypoint;
+  }
+
+  /**
+   * @brief Replaces a waypoint
+   *
+   * @param waypoint Waypoint to replace
+   *
+   * @note Gets the time from the waypoint.
+   * @note If the waypoint does not exist, then this method does not change
+   * anything.
+   */
+  void replace(const Pose<D> &waypoint) {
+    if (!exists(waypoint)) {
+      return;
+    }
+
+    auto tRounded = roundTime(waypoint.getTime());
+    m_waypoints[tRounded] = waypoint;
+  }
+
+  /**
+   * @brief Inserts a waypoint if it doesn't exist, otherwise replaces the
+   * waypoint.
+   *
+   * @param waypoint Waypoint to insert or replace
+   */
+  void insertOrReplace(const Pose<D> &waypoint) {
+    auto tRounded = roundTime(waypoint.getTime());
+    m_waypoints[tRounded] = waypoint;
+  }
+
+  /**
+   * @brief Checks if a waypoint exists
+   *
+   * @param waypoint Checks if this waypoint exists
+   *
+   * @note Only uses the time argument of the waypoint.
+   *
+   * @returns If waypoint exists.
+   */
+  bool exists(const Pose<D> &waypoint) { return exists(waypoint.getTime()); }
+
+  /**
+   * @brief Checks if a waypoint at a certain time exists
+   *
+   * @param time Checks if a waypoint exists at this time
+   *
+   * @returns If waypoint exists.
+   */
+  bool exists(const double time) {
+    const auto tRounded = roundTime(time);
+    return m_waypoints.find(tRounded) != m_waypoints.end();
   }
 
   /**
@@ -112,7 +162,7 @@ public:
    * @note If the waypoint's time is not precise enough, then this may erase a
    * waypoint even though it might not be intended.
    */
-  void erase(const Pose<D> waypoint) { erase(waypoint.getTime()); }
+  void erase(const Pose<D> &waypoint) { erase(waypoint.getTime()); }
 
   /**
    * @brief Removes a waypoint
@@ -271,7 +321,7 @@ public:
     while (time <= timeEnd) {
       auto pos = getPos(time);
       double dist = magn(pos);
-      res = std::min(res, dist);
+      res = std::max(res, dist);
 
       time += timeStep;
     }
@@ -291,7 +341,7 @@ public:
    *
    * @returns Maximum speed.
    */
-  Vector<D> getMaxSpeed(const double timeStep) const {
+  double getMaxSpeed(const double timeStep) const {
     double res = 0.0;
     double time = getLowestTime();
     const double timeEnd = getHighestTime();
@@ -299,7 +349,7 @@ public:
     while (time <= timeEnd) {
       auto vel = getVel(time);
       double dist = magn(vel);
-      res = std::min(res, dist);
+      res = std::max(res, dist);
 
       time += timeStep;
     }
@@ -319,7 +369,7 @@ public:
    *
    * @returns Magnitude of maximum acceleration.
    */
-  Vector<D> getMaxAcceleration(const double timeStep) const {
+  double getMaxAcceleration(const double timeStep) const {
     double res = 0.0;
     double time = getLowestTime();
     const double timeEnd = getHighestTime();
@@ -327,7 +377,7 @@ public:
     while (time <= timeEnd) {
       auto acc = getAcc(time);
       double dist = magn(acc);
-      res = std::min(res, dist);
+      res = std::max(res, dist);
 
       time += timeStep;
     }
