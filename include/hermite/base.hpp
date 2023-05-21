@@ -32,43 +32,43 @@ public:
    *
    * Same as calling getPos()
    *
-   * @param x Input to get value from
+   * @param t Input to get value from
    *
    * @returns Output from function
    */
-  virtual Vector<D> operator()(const double x) const = 0;
+  virtual Vector<D> operator()(const double t) const { return getPos(t); }
 
   /**
    * @brief Gets value of the interpolation function at a certain point
    *
-   * Same as calling using operator()()
+   * Same as calling operator()()
    *
-   * @param x Input to get value from
+   * @param t Input to get value from
    *
    * @returns Output from function
    */
-  virtual Vector<D> getPos(const double x) const = 0;
+  virtual Vector<D> getPos(const double t) const = 0;
 
   /**
    * @brief Gets derivative of the function at a certain point
    *
    * This will usually be the velocity.
    *
-   * @param x Input to get value from
+   * @param t Input to get value from
    *
    * @returns Output from function's derivative
    */
-  virtual Vector<D> getVel(const double x) const = 0;
+  virtual Vector<D> getVel(const double t) const = 0;
 
   /**
    * @brief Gets second derivative of the function at a certain point
    *
    * This will usually be the acceleration.
    *
-   * @param x Input to get value from
+   * @param t Input to get value from
    *
    * @returns Output from function's second derivative
    */
-  virtual Vector<D> getAcc(const double x) const = 0;
+  virtual Vector<D> getAcc(const double t) const = 0;
 };
 } // namespace hermite
