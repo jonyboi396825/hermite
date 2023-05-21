@@ -1,3 +1,368 @@
+/**
+ * @file
+ *
+ * The main hermite spline class
+ */
+
 #pragma once
 
-namespace hermite {} // namespace hermite
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <map>
+#include <vector>
+
+#include "base.hpp"
+#include "hermite_sub.hpp"
+#include "pose.hpp"
+#include "thirdparty/simplevectors.hpp"
+
+namespace hermite {
+using svector::magn;
+
+/**
+ * @brief Hermite spline class
+ *
+ * Given a set of poses (i.e. a desired position and velocity at a certain
+ * time), this class interpolates a path between these poses by using Hermite
+ * splines. It does this by interpolating a Hermite function between each pose
+ * using HermiteSub, and matching the final position and velocity of one pose
+ * with the initial position and velocity of the next.
+ *
+ * This class can work with multiple dimensions, specified in the template
+ * argument. For example, if the path you want to interpolate is 2-dimensional,
+ * then specify "2" in the template argument.
+ *
+ * This class acts like a std::map, where the key is the time. This is to ensure
+ * maximum efficiency inserting, removing, changing, and searching for the
+ * interpoloation equations. However, because time is a floating point number,
+ * and they are always imprecise, it needs to be converted into an integer. It
+ * does this by multiplying the time by a certain multiplier and truncating the
+ * rest of the digits. This is fine for most cases, as the time does not need to
+ * be super precise.
+ */
+template <std::size_t D> class Hermite : public BaseInterpol<D> {
+public:
+  /**
+   * @brief Default constructor
+   *
+   * Sets multiplier to 10, meaning that it shifts the decimal place of the
+   * given time by 1 digit before truncating the rest of the number whenever it
+   * is stored as a waypoint.
+   */
+  Hermite() : m_multiplier{10LL} {}
+
+  /**
+   * @brief Constructor
+   *
+   * @param multiplier Multiplies the time given in the pose by the multiplier,
+   * then truncates the rest of the digits when storing the waypoint.
+   */
+  Hermite(const double multiplier) : m_multiplier{multiplier} {}
+
+  /**
+   * @brief Inserts a waypoint
+   *
+   * @param waypoint Waypoint to insert
+   *
+   * @note If the waypoint's time exists (rounded according to the multiplier),
+   * then this method does nothing.
+   */
+  void insert(const Pose<D> waypoint) {
+    auto tRounded = roundTime(waypoint.getTime());
+
+    // check if already exists
+    if (m_waypoints.find(tRounded) != m_waypoints.end()) {
+      return;
+    }
+
+    m_waypoints[tRounded] = waypoint;
+  }
+
+  /**
+   * @brief Removes a waypoint
+   *
+   * @param waypoint Waypoint to remove
+   *
+   * @note Only the waypoint's time is used in this method.
+   * @note The waypoint's time is rounded by using the multplier
+   * @note If the waypoint's time is not precise enough, then this may erase a
+   * waypoint even though it might not be intended.
+   */
+  void erase(const Pose<D> waypoint) { erase(waypoint.getTime()); }
+
+  /**
+   * @brief Removes a waypoint
+   *
+   * @param time Time of waypoint to remove
+   *
+   * @note The waypoint's time is rounded by using the multplier
+   * @note If the waypoint's time is not precise enough, then this may erase a
+   * waypoint even though it might not be intended.
+   */
+  void erase(const double time) {
+    const auto tRounded = roundTime(time);
+
+    // check if exists
+    auto it = m_waypoints.find(tRounded);
+    if (it == m_waypoints.end()) {
+      return;
+    }
+
+    m_waypoints.erase(it);
+  }
+
+  /**
+   * @brief Gets a list of all waypoints
+   *
+   * @returns A list of all waypoints
+   */
+  std::vector<Pose<D>> getAllWaypoints() const {
+    std::vector<Pose<D>> res;
+    for (const auto &it : m_waypoints) {
+      res.push_back(it.second);
+    }
+
+    return res;
+  }
+
+  /**
+   * @brief Gets the lower bound of the domain of the piecewise spline function,
+   * which is the first time (lowest t-value) listed in the waypoints.
+   *
+   * @note If there are no waypoints, then returns 0
+   *
+   * @returns The first time measurement
+   */
+  double getLowestTime() const {
+    if (m_waypoints.size() == 0) {
+      return 0;
+    }
+
+    auto firstIt = m_waypoints.begin();
+    return firstIt->second.getTime();
+  }
+
+  /**
+   * @brief Gets the upper bound of the domain of the piecewise spline function,
+   * which is the last time (highest t-value) listed in the waypoints.
+   *
+   * @note If there are no waypoints, then returns 0
+   *
+   * @returns The last time measurement
+   */
+  double getHighestTime() const {
+    if (m_waypoints.size() == 0) {
+      return 0;
+    }
+
+    auto lastIt = m_waypoints.rbegin();
+    return lastIt->second.getTime();
+  }
+
+  /**
+   * @brief Gets position at a certain time
+   *
+   * Same as calling operator()()
+   *
+   * @note If time is outside the domain of time from the given points, then it
+   * calculates the value for the function whose domain is nearest to t.
+   * @note If number of waypoints is less than or equal to 1, then returns a
+   * zero vector.
+   *
+   * @param t Time
+   *
+   * @returns Position
+   */
+  Vector<D> getPos(const double t) const override {
+    Vector<D> res;
+    if (m_waypoints.size() < 2) {
+      return res;
+    }
+
+    auto func = getSub(t);
+    return func.getPos(t);
+  }
+
+  /**
+   * @brief Gets velocity at a certain time
+   *
+   * @note If time is outside the domain of time from the given points, then it
+   * calculates the value for the function whose domain is nearest to t.
+   * @note If number of waypoints is less than or equal to 1, then returns a
+   * zero vector.
+   *
+   * @param t Time
+   *
+   * @returns Velocity
+   */
+  Vector<D> getVel(const double t) const override {
+    Vector<D> res;
+    if (m_waypoints.size() < 2) {
+      return res;
+    }
+
+    auto func = getSub(t);
+    return func.getVel(t);
+  }
+
+  /**
+   * @brief Gets acceleration of the function at a certain time
+   *
+   * @note If time is outside the domain of time from the given points, then it
+   * calculates the value for the function whose domain is nearest to t.
+   * @note If number of waypoints is less than or equal to 1, then returns a
+   * zero vector.
+   *
+   * @param t Time
+   *
+   * @returns Acceleration
+   */
+  Vector<D> getAcc(const double t) const override {
+    Vector<D> res;
+    if (m_waypoints.size() < 2) {
+      return res;
+    }
+
+    auto func = getSub(t);
+    return func.getAcc(t);
+  }
+
+  /**
+   * @brief Gets maximum distance from origin
+   *
+   * @param timeStep The time step to try for the absolute maximum
+   *
+   * @note This function will take much longer for smaller timesteps.
+   * Recommended is between 0.001 and 0.1, but this also depends on the domain
+   * of your function.
+   * @note If no waypoints, returns 0.
+   *
+   * @returns Maximum distance from the origin.
+   */
+  double getMaxDistance(const double timeStep) const {
+    double res = 0.0;
+    double time = getLowestTime();
+    const double timeEnd = getHighestTime();
+
+    while (time <= timeEnd) {
+      auto pos = getPos(time);
+      double dist = magn(pos);
+      res = std::min(res, dist);
+
+      time += timeStep;
+    }
+
+    return res;
+  }
+
+  /**
+   * @brief Gets maximum speed
+   *
+   * @param timeStep The time step to try for the absolute maximum
+   *
+   * @note This function will take much longer for smaller timesteps.
+   * Recommended is between 0.001 and 0.1, but this also depends on the domain
+   * of your function.
+   * @note If no poses, returns 0.
+   *
+   * @returns Maximum speed.
+   */
+  Vector<D> getMaxSpeed(const double timeStep) const {
+    double res = 0.0;
+    double time = getLowestTime();
+    const double timeEnd = getHighestTime();
+
+    while (time <= timeEnd) {
+      auto vel = getVel(time);
+      double dist = magn(vel);
+      res = std::min(res, dist);
+
+      time += timeStep;
+    }
+
+    return res;
+  }
+
+  /**
+   * @brief Gets maximum magnitude of acceleration
+   *
+   * @param timeStep The time step to try for the absolute maximum
+   *
+   * @note This function will take much longer for smaller timesteps.
+   * Recommended is between 0.001 and 0.1, but this also depends on the domain
+   * of your function.
+   * @note If no poses, returns 0.
+   *
+   * @returns Magnitude of maximum acceleration.
+   */
+  Vector<D> getMaxAcceleration(const double timeStep) const {
+    double res = 0.0;
+    double time = getLowestTime();
+    const double timeEnd = getHighestTime();
+
+    while (time <= timeEnd) {
+      auto acc = getAcc(time);
+      double dist = magn(acc);
+      res = std::min(res, dist);
+
+      time += timeStep;
+    }
+
+    return res;
+  }
+
+private:
+  double m_multiplier;
+  std::map<std::int64_t, Pose<D>> m_waypoints;
+
+  /**
+   * @brief Rounds time to int
+   *
+   * @param t Time to round
+   *
+   * @returns Rounded time
+   */
+  std::int64_t roundTime(double t) const {
+    t *= m_multiplier;
+    return static_cast<std::int64_t>(t);
+  }
+
+  /**
+   * Gets hermite subinterval given a certain time
+   *
+   * @note Assumes that number of waypoints is greater than or equal to 2. If
+   * not, results in undefined behavior.
+   *
+   * @returns Hermite subinterval
+   */
+  HermiteSub<D> getSub(const double t) const {
+    const auto tRound = roundTime(t);
+    auto itLower = m_waypoints.upper_bound(tRound);
+
+    if (itLower == m_waypoints.begin()) {
+      itLower++;
+    }
+
+    if (itLower == m_waypoints.end()) {
+      itLower--;
+    }
+
+    auto itUpper = itLower;
+    itLower--;
+
+    const auto objUpper = itUpper->second;
+    const auto objLower = itLower->second;
+
+    const auto p0 = objLower.getPos();
+    const auto pf = objUpper.getPos();
+    const auto v0 = objLower.getVel();
+    const auto vf = objUpper.getVel();
+    const auto lowerT = objLower.getTime();
+    const auto upperT = objUpper.getTime();
+
+    HermiteSub<D> res{p0, pf, v0, vf, lowerT, upperT};
+    return res;
+  }
+};
+} // namespace hermite

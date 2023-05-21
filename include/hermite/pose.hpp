@@ -69,21 +69,21 @@ public:
    *
    * @returns Position vector
    */
-  Vector<D> getPos() { return m_pos; }
+  Vector<D> getPos() const { return m_pos; }
 
   /**
    * @brief Gets velocity vector
    *
    * @returns Velocity vector
    */
-  Vector<D> getVel() { return m_vel; }
+  Vector<D> getVel() const { return m_vel; }
 
   /**
    * @brief Gets time
    *
    * @returns time
    */
-  double getTime() { return m_time; }
+  double getTime() const { return m_time; }
 
   /**
    * @brief Sets position vector
