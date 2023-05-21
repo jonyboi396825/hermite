@@ -12,8 +12,8 @@
 #include <map>
 #include <vector>
 
-#include "hermite/base.hpp"
-#include "hermite/hermite_sub.hpp"
+#include "hermite/base_interpol.hpp"
+#include "hermite/hermite/hermite_sub.hpp"
 #include "hermite/pose.hpp"
 #include "hermite/thirdparty/simplevectors.hpp"
 

@@ -25,6 +25,7 @@ add_executable(
   testsub.cpp
   testpose.cpp
   testhermite.cpp
+  testspline.cpp
 )
 target_link_libraries(
   test_all

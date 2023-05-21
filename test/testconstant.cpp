@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "hermite/constants.hpp"
+#include "hermite/hermite/constants.hpp"
 
 using namespace hermite;
 

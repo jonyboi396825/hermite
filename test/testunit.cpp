@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "hermite/hermite_unit.hpp"
+#include "hermite/hermite/hermite_unit.hpp"
 
 using namespace hermite;
 

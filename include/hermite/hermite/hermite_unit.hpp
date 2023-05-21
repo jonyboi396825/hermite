@@ -8,8 +8,8 @@
 
 #include <cstddef>
 
-#include "hermite/base.hpp"
-#include "hermite/constants.hpp"
+#include "hermite/base_interpol.hpp"
+#include "hermite/hermite/constants.hpp"
 #include "hermite/thirdparty/simplevectors.hpp"
 
 namespace hermite {
