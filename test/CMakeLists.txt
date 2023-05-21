@@ -23,6 +23,7 @@ add_executable(
   testconstant.cpp
   testunit.cpp
   testsub.cpp
+  testpose.cpp
 )
 target_link_libraries(
   test_all
