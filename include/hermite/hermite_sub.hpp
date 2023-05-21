@@ -59,7 +59,7 @@ public:
   /**
    * @brief Assignment operator
    */
-  HermiteSub &operator=(const HermiteSub<D> &other) {
+  HermiteSub<D> &operator=(const HermiteSub<D> &other) {
     // check if assigning to self
     if (this == &other) {
       return *this;

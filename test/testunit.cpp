@@ -48,3 +48,20 @@ TEST(HermiteUnitTest, AccOutOfBoundTest) {
   EXPECT_TRUE(h.getAcc(-0.5).isZero());
   EXPECT_TRUE(h.getAcc(1.1).isZero());
 }
+
+TEST(HermiteUnitTest, CopyTest) {
+  HermiteUnit<1> h{{1}, {-0.5}, {0}, {4}};
+  HermiteUnit<1> h2{h};
+  EXPECT_TRUE(h2.getAcc(-0.5).isZero());
+  EXPECT_TRUE(h2.getAcc(1.1).isZero());
+}
+
+TEST(HermiteUnitTest, AssignTest) {
+  HermiteUnit<1> h{{1}, {-0.5}, {0}, {4}};
+  HermiteUnit<1> h2{{0.3}, {-2.2}, {1}, {-56}};
+
+  h2 = h;
+
+  EXPECT_TRUE(h2.getAcc(-0.5).isZero());
+  EXPECT_TRUE(h2.getAcc(1.1).isZero());
+}

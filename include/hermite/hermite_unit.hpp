@@ -61,7 +61,7 @@ public:
   /**
    * @brief Assignment operator
    */
-  HermiteUnit &operator=(const HermiteUnit<D> &other) {
+  HermiteUnit<D> &operator=(const HermiteUnit<D> &other) {
     // check if assigning to self
     if (this == &other) {
       return *this;
@@ -91,7 +91,7 @@ public:
    *
    * @returns Position
    */
-  virtual Vector<D> getPos(const double t) const override {
+  Vector<D> getPos(const double t) const override {
     Vector<D> res;
 
     if (t < 0 || t > 1) {
@@ -111,7 +111,7 @@ public:
    *
    * @returns Velocity
    */
-  virtual Vector<D> getVel(const double t) const override {
+  Vector<D> getVel(const double t) const override {
     Vector<D> res;
 
     if (t < 0 || t > 1) {
@@ -131,7 +131,7 @@ public:
    *
    * @returns Acceleration
    */
-  virtual Vector<D> getAcc(const double t) const override {
+  Vector<D> getAcc(const double t) const override {
     Vector<D> res;
 
     if (t < 0 || t > 1) {

@@ -93,3 +93,21 @@ TEST(HermiteSubTest, AccOutOfBoundTest) {
   EXPECT_TRUE(h.getAcc(-3.5).isZero());
   EXPECT_TRUE(h.getAcc(1.1).isZero());
 }
+
+TEST(HermiteSubTest, CopyTest) {
+  HermiteSub<1> h{{1}, {-0.5}, {0}, {4}, -3, 1};
+  HermiteSub<1> h2{h};
+
+  EXPECT_TRUE(h2.getAcc(-3.5).isZero());
+  EXPECT_TRUE(h2.getAcc(1.1).isZero());
+}
+
+TEST(HermiteSubTest, AssignTest) {
+  HermiteSub<1> h{{1}, {-0.5}, {0}, {4}, -3, 1};
+  HermiteSub<1> h2{{0}, {2}, {1}, {0.44}, -1.1, 4};
+
+  h2 = h;
+
+  EXPECT_TRUE(h2.getAcc(-3.5).isZero());
+  EXPECT_TRUE(h2.getAcc(1.1).isZero());
+}
