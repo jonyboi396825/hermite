@@ -28,15 +28,21 @@ using svector::Vector;
  */
 template <std::size_t D> class HermiteUnit : public BaseInterpol<D> {
 public:
-  HermiteUnit() = delete;
+  /**
+   * @brief Default constructor
+   *
+   * Initializing a unit Hermite interpolation curve with the default
+   * constructor creates a curve that is a constant 0.
+   */
+  HermiteUnit() = default;
 
   /**
    * @brief Constructor
    *
    * @param p0 Initial position vector
-   * @param p1 Initial position vector
-   * @param v0 Initial position vector
-   * @param v1 Initial position vector
+   * @param p1 Final position vector
+   * @param v0 Initial velocity vector
+   * @param v1 Final velocity vector
    */
   HermiteUnit(const Vector<D> p0, const Vector<D> p1, const Vector<D> v0,
               const Vector<D> v1)
@@ -94,7 +100,7 @@ public:
 
     res = m_p0 * h00(t) + m_v0 * h10(t) + m_p1 * h01(t) + m_v1 * h11(t);
     return res;
-  };
+  }
 
   /**
    * @brief Gets velocity at a certain time
