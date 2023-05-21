@@ -8,7 +8,7 @@
 
 #include <cstddef>
 
-#include "thirdparty/simplevectors.hpp"
+#include "hermite/thirdparty/simplevectors.hpp"
 
 namespace hermite {
 using svector::Vector;

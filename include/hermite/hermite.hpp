@@ -12,10 +12,10 @@
 #include <map>
 #include <vector>
 
-#include "base.hpp"
-#include "hermite_sub.hpp"
-#include "pose.hpp"
-#include "thirdparty/simplevectors.hpp"
+#include "hermite/base.hpp"
+#include "hermite/hermite_sub.hpp"
+#include "hermite/pose.hpp"
+#include "hermite/thirdparty/simplevectors.hpp"
 
 namespace hermite {
 using svector::magn;
@@ -40,6 +40,8 @@ using svector::magn;
  * does this by multiplying the time by a certain multiplier and truncating the
  * rest of the digits. This is fine for most cases, as the time does not need to
  * be super precise.
+ *
+ * Hermite curves allow for fast local control, meaning that a
  */
 template <std::size_t D> class Hermite : public BaseInterpol<D> {
 public:

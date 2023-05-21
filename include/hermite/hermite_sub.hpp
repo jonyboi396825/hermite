@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <cstddef>
 
-#include "base.hpp"
-#include "constants.hpp"
-#include "hermite_unit.hpp"
+#include "hermite/base.hpp"
+#include "hermite/constants.hpp"
+#include "hermite/hermite_unit.hpp"
 
 namespace hermite {
 /**

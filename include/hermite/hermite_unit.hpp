@@ -8,9 +8,9 @@
 
 #include <cstddef>
 
-#include "base.hpp"
-#include "constants.hpp"
-#include "thirdparty/simplevectors.hpp"
+#include "hermite/base.hpp"
+#include "hermite/constants.hpp"
+#include "hermite/thirdparty/simplevectors.hpp"
 
 namespace hermite {
 using svector::Vector;
