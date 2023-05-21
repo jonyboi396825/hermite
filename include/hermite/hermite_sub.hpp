@@ -50,11 +50,8 @@ public:
   /**
    * @brief Copy constructor
    */
-  HermiteSub(const HermiteSub<D> &other) {
-    m_unit = other.m_unit;
-    m_lower = other.m_lower;
-    m_upper = other.m_upper;
-  }
+  HermiteSub(const HermiteSub<D> &other)
+      : m_lower{other.m_lower}, m_upper{other.m_upper}, m_unit{other.m_unit} {}
 
   /**
    * @brief Assignment operator

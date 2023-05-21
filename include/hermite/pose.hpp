@@ -42,11 +42,8 @@ public:
   /**
    * @brief Copy constructor
    */
-  Pose(const Pose<D> &other) {
-    m_pos = other.m_pos;
-    m_vel = other.m_vel;
-    m_time = other.m_time;
-  }
+  Pose(const Pose<D> &other)
+      : m_time{other.m_time}, m_pos{other.m_pos}, m_vel{other.m_vel} {}
 
   /**
    * @brief Assignment operator

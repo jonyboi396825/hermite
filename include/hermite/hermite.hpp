@@ -61,6 +61,29 @@ public:
   Hermite(const double multiplier) : m_multiplier{multiplier} {}
 
   /**
+   * @brief Copy constructor
+   */
+  Hermite(const Hermite<D> &other)
+      : m_multiplier{other.m_multiplier}, m_waypoints{other.m_waypoints} {}
+
+  /**
+   * @brief Assignment operator
+   *
+   * @note All data stored in current Hermite object will be lost.
+   */
+  Hermite<D> &operator=(const Hermite<D> &other) {
+    // check if assigning to self
+    if (this == &other) {
+      return *this;
+    }
+
+    m_multiplier = other.m_multiplier;
+    m_waypoints = other.m_waypoints;
+
+    return *this;
+  }
+
+  /**
    * @brief Inserts a waypoint
    *
    * @param waypoint Waypoint to insert
@@ -115,7 +138,7 @@ public:
   /**
    * @brief Gets a list of all waypoints
    *
-   * @returns A list of all waypoints
+   * @returns A list of all waypoints, sorted in order of time.
    */
   std::vector<Pose<D>> getAllWaypoints() const {
     std::vector<Pose<D>> res;

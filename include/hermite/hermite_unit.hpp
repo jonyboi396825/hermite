@@ -51,11 +51,8 @@ public:
   /**
    * @brief Copy constructor
    */
-  HermiteUnit(const HermiteUnit<D> &other) {
-    m_p0 = other.m_p0;
-    m_p1 = other.m_p1;
-    m_v0 = other.m_v0;
-    m_v1 = other.m_v1;
+  HermiteUnit(const HermiteUnit<D> &other)
+      : m_p0{other.m_p0}, m_p1{other.m_p1}, m_v0{other.m_v0}, m_v1{other.m_v1} {
   }
 
   /**
