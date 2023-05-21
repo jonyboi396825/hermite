@@ -212,7 +212,7 @@ TEST(Hermite, PosTest2Waypoints) {
   h.insert(begin);
 
   EXPECT_NEAR(h.getPos(-3)[0], 2.818, 0.01);
-  EXPECT_NEAR(h.getPos(-2.4)[0], 3.725, 0.01);
+  EXPECT_NEAR(h(-2.4)[0], 3.725, 0.01); // testing operator()
   EXPECT_NEAR(h.getPos(-1.1)[0], 4.772, 0.01);
   EXPECT_NEAR(h.getPos(0)[0], 4.869, 0.01);
   EXPECT_NEAR(h.getPos(1)[0], 4.5, 0.01);
