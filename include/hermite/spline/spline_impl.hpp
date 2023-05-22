@@ -15,14 +15,12 @@ namespace hermite {
  * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
  *
  * @param t The time values of each point where splines are supposed to join
- * up. Make values start at index 1, not zero, and size of array must be n + 1
- * @param y The y-values of each know point. Make values start at index 1, not
- * zero, and size of array must be n + 1.
+ * up.
+ * @param y The y-values of each know point.
  * @param n Number of points.
  * @param yp1 The velocity at the first point
  * @param ypn The velocity at the last point
- * @param y2 Output array, filled with second derivatives at each point, whose
- * size must be n + 1
+ * @param y2 Output array, filled with second derivatives at each point.
  */
 inline void spline(double t[], double y[], int n, double yp1, double ypn,
                    double y2[]) {
@@ -32,13 +30,14 @@ inline void spline(double t[], double y[], int n, double yp1, double ypn,
   u.resize(n + 2);
 
   if (yp1 > 0.99e30) {
-    y2[1] = u[1] = 0.0;
+    // y2[1] = u[1] = 0.0;
+    y2[0] = u[0] = 0.0;
   } else {
-    y2[1] = -0.5;
-    u[1] = (3.0 / (t[2] - t[1])) * ((y[2] - y[1]) / (t[2] - t[1]) - yp1);
+    y2[0] = -0.5;
+    u[0] = (3.0 / (t[1] - t[0])) * ((y[1] - y[0]) / (t[1] - t[0]) - yp1);
   }
 
-  for (i = 2; i <= n - 1; i++) {
+  for (i = 1; i <= n - 2; i++) {
     sig = (t[i] - t[i - 1]) / (t[i + 1] - t[i - 1]);
     p = sig * y2[i - 1] + 2.0;
     y2[i] = (sig - 1.0) / p;
@@ -51,12 +50,12 @@ inline void spline(double t[], double y[], int n, double yp1, double ypn,
     qn = un = 0.0;
   } else {
     qn = 0.5;
-    un = (3.0 / (t[n] - t[n - 1])) *
-         (ypn - (y[n] - y[n - 1]) / (t[n] - t[n - 1]));
+    un = (3.0 / (t[n - 1] - t[n - 2])) *
+         (ypn - (y[n - 1] - y[n - 2]) / (t[n - 1] - t[n - 2]));
   }
-  y2[n] = (un - qn * u[n - 1]) / (qn * y2[n - 1] + 1.0);
+  y2[n - 1] = (un - qn * u[n - 2]) / (qn * y2[n - 2] + 1.0);
 
-  for (k = n - 1; k >= 1; k--) {
+  for (k = n - 2; k >= 0; k--) {
     y2[k] = y2[k] * y2[k + 1] + u[k];
   }
 }
@@ -67,10 +66,9 @@ inline void spline(double t[], double y[], int n, double yp1, double ypn,
  * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
  *
  * @param xa The time values of each point where splines are supposed to join
- * up. Make values start at index 1, not zero, and size of array must be n + 1
- * @param ya The y-values of each know point. Make values start at index 1, not
- * zero, and size of array must be n + 1.
- * @param y2a Second derivatives, calculated from spline(), whose size is n + 1
+ * up.
+ * @param ya The y-values of each know point.
+ * @param y2a Second derivatives, calculated from spline()
  * @param n Number of points
  * @param x Point to evaluate
  * @param y Pointer to result
@@ -82,7 +80,7 @@ inline bool splpos(double xa[], double ya[], double y2a[], int n, double x,
   int klo, khi, k;
   double h, b, a;
 
-  klo = 1;
+  klo = 0;
   khi = n;
   while (khi - klo > 1) {
     k = (khi + klo) >> 1;
@@ -112,10 +110,9 @@ inline bool splpos(double xa[], double ya[], double y2a[], int n, double x,
  * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
  *
  * @param xa The time values of each point where splines are supposed to join
- * up. Make values start at index 1, not zero, and size of array must be n + 1
- * @param ya The y-values of each know point. Make values start at index 1, not
- * zero, and size of array must be n + 1.
- * @param y2a Second derivatives, calculated from spline(), whose size is n + 1
+ * up.
+ * @param ya The y-values of each know point.
+ * @param y2a Second derivatives, calculated from spline()
  * @param n Number of points
  * @param x Point to evaluate
  * @param y Pointer to result
@@ -127,7 +124,7 @@ inline bool splvel(double xa[], double ya[], double y2a[], int n, double x,
   int klo, khi, k;
   double h, b, a;
 
-  klo = 1;
+  klo = 0;
   khi = n;
   while (khi - klo > 1) {
     k = (khi + klo) >> 1;
@@ -158,10 +155,9 @@ inline bool splvel(double xa[], double ya[], double y2a[], int n, double x,
  * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
  *
  * @param xa The time values of each point where splines are supposed to join
- * up. Make values start at index 1, not zero, and size of array must be n + 1
- * @param ya The y-values of each know point. Make values start at index 1, not
- * zero, and size of array must be n + 1. Not needed but here for consistency.
- * @param y2a Second derivatives, calculated from spline(), whose size is n + 1
+ * up.
+ * @param ya The y-values of each know point.
+ * @param y2a Second derivatives, calculated from spline()
  * @param n Number of points
  * @param x Point to evaluate
  * @param y Pointer to result
@@ -173,7 +169,7 @@ inline bool splacc(double xa[], double ya[], double y2a[], int n, double x,
   int klo, khi, k;
   double h, b, a;
 
-  klo = 1;
+  klo = 0;
   khi = n;
   while (khi - klo > 1) {
     k = (khi + klo) >> 1;

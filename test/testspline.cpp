@@ -5,13 +5,13 @@
 using namespace hermite;
 
 TEST(SplineImpl, PosTest) {
-  double t[5] = {0, 0, 2, 5, 8};
-  double y[5] = {0, 1, 2, 0, 0};
+  double t[4] = {0, 2, 5, 8};
+  double y[4] = {1, 2, 0, 0};
   int n = 4;
   double yp1 = 2;
   double ypn = 1;
 
-  double ydd[5];
+  double ydd[4];
 
   spline(t, y, n, yp1, ypn, ydd);
 
@@ -28,13 +28,13 @@ TEST(SplineImpl, PosTest) {
 }
 
 TEST(SplineImpl, VelTest) {
-  double t[5] = {0, 0, 2, 5, 8};
-  double y[5] = {0, 1, 2, 0, 0};
+  double t[4] = {0, 2, 5, 8};
+  double y[4] = {1, 2, 0, 0};
   int n = 4;
   double yp1 = 2;
   double ypn = 1;
 
-  double ydd[5];
+  double ydd[4];
 
   spline(t, y, n, yp1, ypn, ydd);
 
@@ -51,13 +51,13 @@ TEST(SplineImpl, VelTest) {
 }
 
 TEST(SplineImpl, AccTest) {
-  double t[5] = {0, 0, 2, 5, 8};
-  double y[5] = {0, 1, 2, 0, 0};
+  double t[4] = {0, 2, 5, 8};
+  double y[4] = {1, 2, 0, 0};
   int n = 4;
   double yp1 = 2;
   double ypn = 1;
 
-  double ydd[5];
+  double ydd[4];
 
   spline(t, y, n, yp1, ypn, ydd);
 
