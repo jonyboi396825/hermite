@@ -390,6 +390,38 @@ public:
     return res;
   }
 
+  /**
+   * @brief Gets arc length
+   *
+   * @param timeStep The time step to try for the absolute maximum
+   *
+   * @note This function will take much longer for smaller timesteps.
+   * Recommended is between 0.001 and 0.1, but this also depends on the domain
+   * of your function.
+   * @note If zero or one poses, returns 0.
+   *
+   * @returns Arc length
+   */
+  double getLength(const double timeStep) const {
+    double res = 0.0;
+
+    if (m_waypoints.size() < 2) {
+      return res;
+    }
+
+    double time = getLowestTime() + timeStep;
+    const double timeEnd = getHighestTime();
+    while (time <= timeEnd) {
+      auto vel = getVel(time);
+      auto speed = magn(vel);
+      res += speed * timeStep;
+
+      time += timeStep;
+    }
+
+    return res;
+  }
+
 private:
   double m_multiplier;
   std::map<std::int64_t, Pose<D>> m_waypoints;

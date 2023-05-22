@@ -81,7 +81,7 @@ inline bool splpos(double xa[], double ya[], double y2a[], int n, double x,
   double h, b, a;
 
   klo = 0;
-  khi = n;
+  khi = n - 1;
   while (khi - klo > 1) {
     k = (khi + klo) >> 1;
     if (xa[k] > x) {
@@ -125,7 +125,7 @@ inline bool splvel(double xa[], double ya[], double y2a[], int n, double x,
   double h, b, a;
 
   klo = 0;
-  khi = n;
+  khi = n - 1;
   while (khi - klo > 1) {
     k = (khi + klo) >> 1;
     if (xa[k] > x) {
@@ -170,7 +170,7 @@ inline bool splacc(double xa[], double ya[], double y2a[], int n, double x,
   double h, b, a;
 
   klo = 0;
-  khi = n;
+  khi = n - 1;
   while (khi - klo > 1) {
     k = (khi + klo) >> 1;
     if (xa[k] > x) {
