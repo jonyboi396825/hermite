@@ -81,12 +81,12 @@ TEST(SplineVec, PosTest) {
   Pose<1> p4{8, {0}, {1}};
 
   std::vector<Pose<1>> poses{p1, p2, p3, p4};
-  auto dd = spline(poses);
+  SplineVec<1> spl{poses};
 
-  auto y1 = splpos(poses, dd, 1);
-  auto y2 = splpos(poses, dd, 4);
-  auto y3 = splpos(poses, dd, 5);
-  auto y4 = splpos(poses, dd, 7.5);
+  auto y1 = spl.splpos(1);
+  auto y2 = spl.splpos(4);
+  auto y3 = spl.splpos(5);
+  auto y4 = spl.splpos(7.5);
 
   EXPECT_NEAR(y1[0], 2.105, 0.01);
   EXPECT_NEAR(y2[0], 0.712, 0.01);
@@ -101,12 +101,12 @@ TEST(SplineVec, VelTest) {
   Pose<1> p4{8, {0}, {1}};
 
   std::vector<Pose<1>> poses{p1, p2, p3, p4};
-  auto dd = spline(poses);
+  SplineVec<1> spl{poses};
 
-  auto y1 = splvel(poses, dd, 1);
-  auto y2 = splvel(poses, dd, 4);
-  auto y3 = splvel(poses, dd, 5);
-  auto y4 = splvel(poses, dd, 7.5);
+  auto y1 = spl.splvel(1);
+  auto y2 = spl.splvel(4);
+  auto y3 = spl.splvel(5);
+  auto y4 = spl.splvel(7.5);
 
   EXPECT_NEAR(y1[0], 0.355, 0.01);
   EXPECT_NEAR(y2[0], -0.749, 0.01);
@@ -121,12 +121,12 @@ TEST(SplineVec, AccTest) {
   Pose<1> p4{8, {0}, {1}};
 
   std::vector<Pose<1>> poses{p1, p2, p3, p4};
-  auto dd = spline(poses);
+  SplineVec<1> spl{poses};
 
-  auto y1 = splacc(poses, dd, 1);
-  auto y2 = splacc(poses, dd, 4);
-  auto y3 = splacc(poses, dd, 5);
-  auto y4 = splacc(poses, dd, 7.5);
+  auto y1 = spl.splacc(1);
+  auto y2 = spl.splacc(4);
+  auto y3 = spl.splacc(5);
+  auto y4 = spl.splacc(7.5);
 
   EXPECT_NEAR(y1[0], -1.211, 0.01);
   EXPECT_NEAR(y2[0], 0.015, 0.01);

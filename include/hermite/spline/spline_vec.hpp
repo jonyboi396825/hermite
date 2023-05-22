@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <array>
 #include <cstddef>
 #include <vector>
 
@@ -17,171 +18,118 @@ namespace hermite {
 using svector::Vector;
 
 /**
- * Generates second derivatives of splines
+ * @brief Spline vector calculator
  *
- * @param poses The list of poses. Velocities of poses 1...n-2 will be ignored.
- *
- * @note Assumes that the size of poses is greater than or equal to 2, it is
- * sorted by time, and there are no repeated times. Otherwise, there will be
- * undefined behavior.
- *
- * @returns The list of accelerations
+ * Calculates spline for vectors in C++ STL containers
  */
-template <std::size_t D>
-inline std::vector<Vector<D>> spline(const std::vector<Pose<D>> &poses) {
-  const std::size_t n = poses.size();
-  std::vector<Vector<D>> res(n);
+template <std::size_t D> class SplineVec {
+public:
+  SplineVec() = delete;
 
-  // solve each dimension independently
-  for (std::size_t dim = 0; dim < D; dim++) {
-    std::vector<double> t(n);
-    std::vector<double> y(n);
+  /**
+   * @brief Constructor
+   *
+   * Takes a list of poses and calculates the position values and time values
+   * for each pose in each dimension efficiently (linear complexity to the
+   * number of waypoints, times the number of dimensions).
+   *
+   * @note Assumes that the size of poses is greater than or equal to 2, it is
+   * sorted by time, and there are no repeated times. Otherwise, there will be
+   * undefined behavior.
+   *
+   * @param waypoints A list of poses
+   */
+  SplineVec(const std::vector<Pose<D>> &waypoints) {
+    const std::size_t n = waypoints.size();
+    m_ts.resize(n);
 
-    for (std::size_t i = 0; i < n; i++) {
-      t[i] = poses[i].getTime();
-      y[i] = poses[i].getPos()[dim];
-    }
+    // solve each dimension independently
+    for (std::size_t dim = 0; dim < D; dim++) {
+      m_ys[dim].resize(n);
+      m_accs[dim].resize(n);
 
-    const double yp1 = poses[0].getVel()[dim];
-    const double ypn = poses[n - 1].getVel()[dim];
+      for (std::size_t i = 0; i < n; i++) {
+        m_ts[i] = waypoints[i].getTime();
+        m_ys[dim][i] = waypoints[i].getPos()[dim];
+      }
 
-    std::vector<double> ydd(n);
-    spline(t.data(), y.data(), static_cast<int>(n), yp1, ypn, ydd.data());
+      const double yp1 = waypoints[0].getVel()[dim];
+      const double ypn = waypoints[n - 1].getVel()[dim];
 
-    for (std::size_t i = 0; i < n; i++) {
-      res[i][dim] = ydd[i];
+      spline(m_ts.data(), m_ys[dim].data(), static_cast<int>(n), yp1, ypn,
+             m_accs[dim].data());
     }
   }
 
-  return res;
-}
+  /**
+   * Gets position value given a time input
+   *
+   * @param t Time input
+   *
+   * @returns Position vector at a given time
+   */
+  Vector<D> splpos(const double t) {
+    const std::size_t n = m_ts.size();
+    Vector<D> res;
 
-/**
- * Gets position value given a time input
- *
- * @param poses A list of poses
- * @param accs The list of accelerations from calling spline()
- * @param t Time input
- *
- * @note Assumes that the size of poses is greater than or equal to 2, it is
- * sorted by time, and there are no repeated times. Otherwise, there will be
- * undefined behavior.
- * @note Assumes that the sizes of poses and accs are the same, otherwise
- * results in undefined behavior.
- * @note Because of copying, the complexity is quadratic rather than
- * logarithmic, so it can be slow for a large number of data points.
- *
- * @returns Position vector at a given time
- */
-template <std::size_t D>
-inline Vector<D> splpos(const std::vector<Pose<D>> &poses,
-                        const std::vector<Vector<D>> &accs, const double t) {
-  const std::size_t n = poses.size();
-  Vector<D> res;
-
-  // solve each dimension independently
-  for (std::size_t dim = 0; dim < D; dim++) {
-    std::vector<double> ta(n);
-    std::vector<double> y(n);
-    std::vector<double> accsd(n);
-
-    for (std::size_t i = 0; i < n; i++) {
-      ta[i] = poses[i].getTime();
-      y[i] = poses[i].getPos()[dim];
-      accsd[i] = accs[i][dim];
+    // solve each dimension independently
+    for (std::size_t dim = 0; dim < D; dim++) {
+      double output;
+      hermite::splpos(m_ts.data(), m_ys[dim].data(), m_accs[dim].data(),
+                      static_cast<int>(n), t, &output);
+      res[dim] = output;
     }
 
-    double output;
-    splpos(ta.data(), y.data(), accsd.data(), static_cast<int>(n), t, &output);
-    res[dim] = output;
+    return res;
   }
 
-  return res;
-}
+  /**
+   * Gets velocity value given a time input
+   *
+   * @param t Time input
+   *
+   * @returns Velocity vector at a given time
+   */
+  Vector<D> splvel(const double t) {
+    const std::size_t n = m_ts.size();
+    Vector<D> res;
 
-/**
- * Gets velocity value given a time input
- *
- * @param poses A list of poses
- * @param accs The list of accelerations from calling spline()
- * @param t Time input
- *
- * @note Assumes that the size of poses is greater than or equal to 2, it is
- * sorted by time, and there are no repeated times. Otherwise, there will be
- * undefined behavior.
- * @note Assumes that the sizes of poses and accs are the same, otherwise
- * results in undefined behavior.
- * @note Because of copying, the complexity is quadratic rather than
- * logarithmic, so it can be slow for a large number of data points.
- *
- * @returns Velocity vector at a given time
- */
-template <std::size_t D>
-inline Vector<D> splvel(const std::vector<Pose<D>> &poses,
-                        const std::vector<Vector<D>> &accs, const double t) {
-  const std::size_t n = poses.size();
-  Vector<D> res;
-
-  // solve each dimension independently
-  for (std::size_t dim = 0; dim < D; dim++) {
-    std::vector<double> ta(n);
-    std::vector<double> y(n);
-    std::vector<double> accsd(n);
-
-    for (std::size_t i = 0; i < n; i++) {
-      ta[i] = poses[i].getTime();
-      y[i] = poses[i].getPos()[dim];
-      accsd[i] = accs[i][dim];
+    // solve each dimension independently
+    for (std::size_t dim = 0; dim < D; dim++) {
+      double output;
+      hermite::splvel(m_ts.data(), m_ys[dim].data(), m_accs[dim].data(),
+                      static_cast<int>(n), t, &output);
+      res[dim] = output;
     }
 
-    double output;
-    splvel(ta.data(), y.data(), accsd.data(), static_cast<int>(n), t, &output);
-    res[dim] = output;
+    return res;
   }
 
-  return res;
-}
+  /**
+   * Gets acceleration value given a time input
+   *
+   * @param t Time input
+   *
+   * @returns Acceleration vector at a given time
+   */
+  Vector<D> splacc(const double t) {
+    const std::size_t n = m_ts.size();
+    Vector<D> res;
 
-/**
- * Gets acceleration value given a time input
- *
- * @param poses A list of poses
- * @param accs The list of accelerations from calling spline()
- * @param t Time input
- *
- * @note Assumes that the size of poses is greater than or equal to 2, it is
- * sorted by time, and there are no repeated times. Otherwise, there will be
- * undefined behavior.
- * @note Assumes that the sizes of poses and accs are the same, otherwise
- * results in undefined behavior.
- * @note Because of copying, the complexity is quadratic rather than
- * logarithmic, so it can be slow for a large number of data points.
- *
- * @returns Acceleration vector at a given time
- */
-template <std::size_t D>
-inline Vector<D> splacc(const std::vector<Pose<D>> &poses,
-                        const std::vector<Vector<D>> &accs, const double t) {
-  const std::size_t n = poses.size();
-  Vector<D> res;
-
-  // solve each dimension independently
-  for (std::size_t dim = 0; dim < D; dim++) {
-    std::vector<double> ta(n);
-    std::vector<double> y(n);
-    std::vector<double> accsd(n);
-
-    for (std::size_t i = 0; i < n; i++) {
-      ta[i] = poses[i].getTime();
-      y[i] = poses[i].getPos()[dim];
-      accsd[i] = accs[i][dim];
+    // solve each dimension independently
+    for (std::size_t dim = 0; dim < D; dim++) {
+      double output;
+      hermite::splacc(m_ts.data(), m_ys[dim].data(), m_accs[dim].data(),
+                      static_cast<int>(n), t, &output);
+      res[dim] = output;
     }
 
-    double output;
-    splacc(ta.data(), y.data(), accsd.data(), static_cast<int>(n), t, &output);
-    res[dim] = output;
+    return res;
   }
 
-  return res;
-}
+private:
+  std::vector<double> m_ts;
+  std::array<std::vector<double>, D> m_ys;
+  std::array<std::vector<double>, D> m_accs;
+};
 } // namespace hermite
