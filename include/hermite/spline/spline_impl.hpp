@@ -14,19 +14,22 @@ namespace hermite {
  *
  * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
  *
- * @param t The time values of each point where splines are supposed to join up.
- * @param y The y-values of each know point.
- * @param n Number of points
+ * @param t The time values of each point where splines are supposed to join
+ * up. Make values start at index 1, not zero, and size of array must be n + 1
+ * @param y The y-values of each know point. Make values start at index 1, not
+ * zero, and size of array must be n + 1.
+ * @param n Number of points.
  * @param yp1 The velocity at the first point
  * @param ypn The velocity at the last point
- * @param y2 Output array, filled with second derivatives at each point
+ * @param y2 Output array, filled with second derivatives at each point, whose
+ * size must be n + 1
  */
 inline void spline(double t[], double y[], int n, double yp1, double ypn,
                    double y2[]) {
   int i, k;
   double p, qn, sig, un;
   std::vector<double> u;
-  u.resize(n + 1);
+  u.resize(n + 2);
 
   if (yp1 > 0.99e30) {
     y2[1] = u[1] = 0.0;
@@ -64,16 +67,17 @@ inline void spline(double t[], double y[], int n, double yp1, double ypn,
  * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
  *
  * @param xa The time values of each point where splines are supposed to join
- * up.
- * @param ya The y-values of each know point.
- * @param y2a Second derivatives, calculated from spline()
+ * up. Make values start at index 1, not zero, and size of array must be n + 1
+ * @param ya The y-values of each know point. Make values start at index 1, not
+ * zero, and size of array must be n + 1.
+ * @param y2a Second derivatives, calculated from spline(), whose size is n + 1
  * @param n Number of points
  * @param x Point to evaluate
  * @param y Pointer to result
  *
  * @returns True on success, false on failure
  */
-inline bool splint(double xa[], double ya[], double y2a[], int n, double x,
+inline bool splpos(double xa[], double ya[], double y2a[], int n, double x,
                    double *y) {
   int klo, khi, k;
   double h, b, a;
@@ -99,6 +103,97 @@ inline bool splint(double xa[], double ya[], double y2a[], int n, double x,
   *y =
       a * ya[klo] + b * ya[khi] +
       ((a * a * a - a) * y2a[klo] + (b * b * b - b) * y2a[khi]) * (h * h) / 6.0;
+  return true;
+}
+
+/**
+ * @brief Calculates velocity of spline
+ *
+ * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
+ *
+ * @param xa The time values of each point where splines are supposed to join
+ * up. Make values start at index 1, not zero, and size of array must be n + 1
+ * @param ya The y-values of each know point. Make values start at index 1, not
+ * zero, and size of array must be n + 1.
+ * @param y2a Second derivatives, calculated from spline(), whose size is n + 1
+ * @param n Number of points
+ * @param x Point to evaluate
+ * @param y Pointer to result
+ *
+ * @returns True on success, false on failure
+ */
+inline bool splvel(double xa[], double ya[], double y2a[], int n, double x,
+                   double *y) {
+  int klo, khi, k;
+  double h, b, a;
+
+  klo = 1;
+  khi = n;
+  while (khi - klo > 1) {
+    k = (khi + klo) >> 1;
+    if (xa[k] > x) {
+      khi = k;
+    } else {
+      klo = k;
+    }
+  }
+
+  h = xa[khi] - xa[klo];
+  if (h == 0.0) {
+    return false;
+  }
+
+  a = (xa[khi] - x) / h;
+  b = (x - xa[klo]) / h;
+  *y = (-1 / h) * ya[klo] + (1 / h) * ya[khi] +
+       ((3 * a * a - 1) * y2a[klo] * (-1 / h) +
+        (3 * b * b - 1) * y2a[khi] * (1 / h)) *
+           (h * h) / 6.0;
+  return true;
+}
+
+/**
+ * @brief Calculates acceleration of spline
+ *
+ * https://archive.org/details/NumericalRecipes/page/n139/mode/2up
+ *
+ * @param xa The time values of each point where splines are supposed to join
+ * up. Make values start at index 1, not zero, and size of array must be n + 1
+ * @param ya The y-values of each know point. Make values start at index 1, not
+ * zero, and size of array must be n + 1. Not needed but here for consistency.
+ * @param y2a Second derivatives, calculated from spline(), whose size is n + 1
+ * @param n Number of points
+ * @param x Point to evaluate
+ * @param y Pointer to result
+ *
+ * @returns True on success, false on failure
+ */
+inline bool splacc(double xa[], double ya[], double y2a[], int n, double x,
+                   double *y) {
+  int klo, khi, k;
+  double h, b, a;
+
+  klo = 1;
+  khi = n;
+  while (khi - klo > 1) {
+    k = (khi + klo) >> 1;
+    if (xa[k] > x) {
+      khi = k;
+    } else {
+      klo = k;
+    }
+  }
+
+  h = xa[khi] - xa[klo];
+  if (h == 0.0) {
+    return false;
+  }
+
+  (void)ya;
+
+  a = (xa[khi] - x) / h;
+  b = (x - xa[klo]) / h;
+  *y = y2a[klo] * a + y2a[khi] * b;
   return true;
 }
 } // namespace hermite
