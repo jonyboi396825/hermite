@@ -10,6 +10,8 @@
 #include "hermite/thirdparty/simplevectors.hpp"
 
 namespace hermite {
+using svector::Vector;
+
 /**
  * @file
  *
@@ -43,6 +45,39 @@ public:
   virtual double getHighestTime() const = 0;
 
   /**
+   * @brief Gets value of the interpolation function at a certain point
+   *
+   * Same as calling operator()()
+   *
+   * @param t Input to get value from
+   *
+   * @returns Output from function
+   */
+  virtual Vector<D> getPos(const double t) const = 0;
+
+  /**
+   * @brief Gets derivative of the function at a certain point
+   *
+   * This will usually be the velocity.
+   *
+   * @param t Input to get value from
+   *
+   * @returns Output from function's derivative
+   */
+  virtual Vector<D> getVel(const double t) const = 0;
+
+  /**
+   * @brief Gets second derivative of the function at a certain point
+   *
+   * This will usually be the acceleration.
+   *
+   * @param t Input to get value from
+   *
+   * @returns Output from function's second derivative
+   */
+  virtual Vector<D> getAcc(const double t) const = 0;
+
+  /**
    * @brief Gets maximum distance from origin
    *
    * @param timeStep The time step to try for the absolute maximum
@@ -54,7 +89,21 @@ public:
    *
    * @returns Maximum distance from the origin.
    */
-  virtual double getMaxDistance(const double timeStep) const = 0;
+  double getMaxDistance(const double timeStep) const {
+    double res = 0.0;
+    double time = getLowestTime();
+    const double timeEnd = getHighestTime();
+
+    while (time <= timeEnd) {
+      auto pos = getPos(time);
+      double dist = magn(pos);
+      res = std::max(res, dist);
+
+      time += timeStep;
+    }
+
+    return res;
+  }
 
   /**
    * @brief Gets maximum speed
@@ -68,7 +117,21 @@ public:
    *
    * @returns Maximum speed.
    */
-  virtual double getMaxSpeed(const double timeStep) const = 0;
+  double getMaxSpeed(const double timeStep) const {
+    double res = 0.0;
+    double time = getLowestTime();
+    const double timeEnd = getHighestTime();
+
+    while (time <= timeEnd) {
+      auto vel = getVel(time);
+      double dist = magn(vel);
+      res = std::max(res, dist);
+
+      time += timeStep;
+    }
+
+    return res;
+  }
 
   /**
    * @brief Gets maximum magnitude of acceleration
@@ -82,7 +145,22 @@ public:
    *
    * @returns Magnitude of maximum acceleration.
    */
-  virtual double getMaxAcceleration(const double timeStep) const = 0;
+  double getMaxAcceleration(const double timeStep) const {
+    double res = 0.0;
+    double time = getLowestTime();
+    const double timeEnd = getHighestTime();
+
+    while (time <= timeEnd) {
+      auto acc = getAcc(time);
+      double dist = magn(acc);
+      res = std::max(res, dist);
+
+      time += timeStep;
+    }
+
+    return res;
+  }
+
   /**
    * @brief Gets arc length
    *
