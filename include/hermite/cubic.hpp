@@ -8,8 +8,8 @@
 #include <vector>
 
 #include "hermite/base_interpol.hpp"
+#include "hermite/cubic/cubic_vec.hpp"
 #include "hermite/pose.hpp"
-#include "hermite/spline/spline_vec.hpp"
 
 namespace hermite {
 /**

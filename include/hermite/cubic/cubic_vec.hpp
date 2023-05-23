@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * Low-level spline operations with vectors and STL containers
+ * Low-level cubic spline operations with vectors and STL containers
  */
 
 #pragma once
@@ -10,8 +10,8 @@
 #include <cstddef>
 #include <vector>
 
+#include "hermite/cubic/cubic_impl.hpp"
 #include "hermite/pose.hpp"
-#include "hermite/spline/spline_impl.hpp"
 #include "hermite/thirdparty/simplevectors.hpp"
 
 namespace hermite {

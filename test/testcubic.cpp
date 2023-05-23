@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "hermite/spline/spline_impl.hpp"
-#include "hermite/spline/spline_vec.hpp"
+#include "hermite/cubic/cubic_impl.hpp"
+#include "hermite/cubic/cubic_vec.hpp"
 
 using namespace hermite;
 
