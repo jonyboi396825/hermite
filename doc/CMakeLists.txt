@@ -7,6 +7,7 @@ set(
   "${PROJECT_SOURCE_DIR}/README.md"
 )
 set(DOXYGEN_SHORT_NAMES YES)
+set(DOXYGEN_USE_MATHJAX YES)
 
 doxygen_add_docs(doxygen
   ${PROJECT_SOURCE_DIR}
