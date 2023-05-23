@@ -23,9 +23,9 @@ namespace hermite {
  *
  * This class takes in an std::vector of poses and interpolates from that
  * vector. This vector should be obtained using the Hermite class's
- * getAllWaypoints() method. Although the vector can be created yourself, you
- * need to be careful and make sure there are no repeated
- * points in time, or it may lead to undefined behavior.
+ * Hermite::getAllWaypoints() method. Although the vector can be created
+ * yourself, you need to be careful and make sure there are no repeated points
+ * in time, or it may lead to undefined behavior.
  *
  * The advantage of using this over Hermite is that you obtain C2 continuity.
  * However, the path must be regenerated after changing one position, and it

@@ -13,9 +13,7 @@ namespace hermite {
 using svector::Vector;
 
 /**
- * @file
- *
- * Abstract base class for interpolating splines
+ * @brief Abstract base class for interpolating splines
  */
 template <std::size_t D> class BaseSpline : public BaseInterpol<D> {
 public:

@@ -19,7 +19,7 @@ option(HERMITE_BUILD_TESTING "Enable building tests" ON)
 # Add an interface target for our header-only library
 add_library(hermite INTERFACE)
 target_include_directories(hermite INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 

@@ -14,7 +14,7 @@ namespace hermite {
 using svector::Vector;
 
 /**
- * @brief Pose
+ * @brief A pose object
  *
  * Poses in multiple dimensions can use multiple Pose objects.
  *
