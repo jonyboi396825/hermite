@@ -12,7 +12,7 @@
 #include <map>
 #include <vector>
 
-#include "hermite/base_interpol.hpp"
+#include "hermite/base_spline.hpp"
 #include "hermite/hermite/hermite_sub.hpp"
 #include "hermite/pose.hpp"
 #include "hermite/thirdparty/simplevectors.hpp"
@@ -46,7 +46,7 @@ using svector::magn;
  * means that there may be high jerk at knot points (as acceleration is
  * discontinuous).
  */
-template <std::size_t D> class Hermite : public BaseInterpol<D> {
+template <std::size_t D> class Hermite : public BaseSpline<D> {
 public:
   /**
    * @brief Default constructor
@@ -217,7 +217,7 @@ public:
    *
    * @returns The first time measurement
    */
-  double getLowestTime() const {
+  double getLowestTime() const override {
     if (m_waypoints.size() == 0) {
       return 0;
     }
@@ -234,7 +234,7 @@ public:
    *
    * @returns The last time measurement
    */
-  double getHighestTime() const {
+  double getHighestTime() const override {
     if (m_waypoints.size() == 0) {
       return 0;
     }
@@ -323,7 +323,7 @@ public:
    *
    * @returns Maximum distance from the origin.
    */
-  double getMaxDistance(const double timeStep) const {
+  double getMaxDistance(const double timeStep) const override {
     double res = 0.0;
     double time = getLowestTime();
     const double timeEnd = getHighestTime();
@@ -351,7 +351,7 @@ public:
    *
    * @returns Maximum speed.
    */
-  double getMaxSpeed(const double timeStep) const {
+  double getMaxSpeed(const double timeStep) const override {
     double res = 0.0;
     double time = getLowestTime();
     const double timeEnd = getHighestTime();
@@ -379,7 +379,7 @@ public:
    *
    * @returns Magnitude of maximum acceleration.
    */
-  double getMaxAcceleration(const double timeStep) const {
+  double getMaxAcceleration(const double timeStep) const override {
     double res = 0.0;
     double time = getLowestTime();
     const double timeEnd = getHighestTime();
@@ -398,7 +398,7 @@ public:
   /**
    * @brief Gets arc length
    *
-   * @param timeStep The time step to try for the absolute maximum
+   * @param timeStep The time step to try for the arc length
    *
    * @note This function will take much longer for smaller timesteps.
    * Recommended is between 0.001 and 0.1, but this also depends on the domain
@@ -407,7 +407,7 @@ public:
    *
    * @returns Arc length
    */
-  double getLength(const double timeStep) const {
+  double getLength(const double timeStep) const override {
     double res = 0.0;
 
     if (m_waypoints.size() < 2) {
