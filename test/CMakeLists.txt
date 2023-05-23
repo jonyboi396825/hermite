@@ -25,6 +25,7 @@ add_executable(
   testsub.cpp
   testpose.cpp
   testhermite.cpp
+  testcubiclowlevel.cpp
   testcubic.cpp
 )
 target_link_libraries(

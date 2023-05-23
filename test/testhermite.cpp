@@ -538,6 +538,22 @@ TEST(Hermite, MaxAccTest) {
   EXPECT_NEAR(h.getMaxAcceleration(0.001), 3.5, 0.01);
 }
 
+TEST(Hermite, ArcLengthTest) {
+  Hermite<1> h;
+
+  Pose<1> p0{-3, {-2}, {0}};
+  Pose<1> p1{0, {2}, {1}};
+  Pose<1> p2{2, {3}, {2}};
+  Pose<1> p3{6, {0}, {0}};
+
+  h.insert(p0);
+  h.insert(p1);
+  h.insert(p2);
+  h.insert(p3);
+
+  EXPECT_NEAR(h.getLength(0.001), 9.445, 0.01);
+}
+
 TEST(Hermite, CopyTest) {
   Hermite<1> h;
 

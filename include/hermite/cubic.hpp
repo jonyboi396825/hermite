@@ -63,9 +63,9 @@ public:
   Cubic(const std::vector<Pose<D>> &waypoints) : m_waypoints{waypoints} {
     std::sort(m_waypoints.begin(), m_waypoints.end(),
               [](const Pose<D> &a, const Pose<D> &b) {
-                return a.getPos() < b.getPos();
+                return a.getTime() < b.getTime();
               });
-    m_spl = SplineVec<D>{m_waypoints};
+    m_spl = CubicVec<D>{m_waypoints};
   }
 
   /**
@@ -78,8 +78,14 @@ public:
    * @brief Assignment operator
    */
   Cubic<D> &operator=(const Cubic<D> &other) {
+    if (this == &other) {
+      return *this;
+    }
+
     m_waypoints = other.m_waypoints;
     m_spl = other.m_spl;
+
+    return *this;
   }
 
   /**
@@ -311,6 +317,6 @@ public:
 
 private:
   std::vector<Pose<D>> m_waypoints;
-  SplineVec<D> m_spl;
+  CubicVec<D> m_spl;
 };
 } // namespace hermite

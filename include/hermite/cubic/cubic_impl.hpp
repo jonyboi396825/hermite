@@ -22,8 +22,8 @@ namespace hermite {
  * @param ypn The velocity at the last point
  * @param y2 Output array, filled with second derivatives at each point.
  */
-inline void spline(double t[], double y[], int n, double yp1, double ypn,
-                   double y2[]) {
+inline void spline(const double t[], const double y[], const int n,
+                   const double yp1, const double ypn, double y2[]) {
   int i, k;
   double p, qn, sig, un;
   std::vector<double> u;
@@ -75,8 +75,8 @@ inline void spline(double t[], double y[], int n, double yp1, double ypn,
  *
  * @returns True on success, false on failure
  */
-inline bool splpos(double xa[], double ya[], double y2a[], int n, double x,
-                   double *y) {
+inline bool splpos(const double xa[], const double ya[], const double y2a[],
+                   const int n, const double x, double *y) {
   int klo, khi, k;
   double h, b, a;
 
@@ -119,8 +119,8 @@ inline bool splpos(double xa[], double ya[], double y2a[], int n, double x,
  *
  * @returns True on success, false on failure
  */
-inline bool splvel(double xa[], double ya[], double y2a[], int n, double x,
-                   double *y) {
+inline bool splvel(const double xa[], const double ya[], const double y2a[],
+                   const int n, const double x, double *y) {
   int klo, khi, k;
   double h, b, a;
 
@@ -164,8 +164,8 @@ inline bool splvel(double xa[], double ya[], double y2a[], int n, double x,
  *
  * @returns True on success, false on failure
  */
-inline bool splacc(double xa[], double ya[], double y2a[], int n, double x,
-                   double *y) {
+inline bool splacc(const double xa[], const double ya[], const double y2a[],
+                   const int n, const double x, double *y) {
   int klo, khi, k;
   double h, b, a;
 

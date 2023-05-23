@@ -296,6 +296,8 @@ public:
    * calculates the value for the function whose domain is nearest to t.
    * @note If number of waypoints is less than or equal to 1, then returns a
    * zero vector.
+   * @note If called on a border between two functions, will take the value of
+   * the latter function.
    *
    * @param t Time
    *

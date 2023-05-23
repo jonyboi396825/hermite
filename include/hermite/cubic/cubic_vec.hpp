@@ -22,7 +22,7 @@ using svector::Vector;
  *
  * Calculates spline for vectors in C++ STL containers
  */
-template <std::size_t D> class SplineVec {
+template <std::size_t D> class CubicVec {
 public:
   /**
    * @brief Default constructor
@@ -32,7 +32,7 @@ public:
    * current object to another one with two or more waypoints, or you check
    * bounds before using any of the methods.
    */
-  SplineVec() = default;
+  CubicVec() = default;
 
   /**
    * @brief Constructor
@@ -47,7 +47,7 @@ public:
    *
    * @param waypoints A list of poses
    */
-  SplineVec(const std::vector<Pose<D>> &waypoints) {
+  CubicVec(const std::vector<Pose<D>> &waypoints) {
     const std::size_t n = waypoints.size();
     m_ts.resize(n);
 
@@ -72,13 +72,13 @@ public:
   /**
    * @brief Copy constructor
    */
-  SplineVec(const SplineVec<D> &other)
+  CubicVec(const CubicVec<D> &other)
       : m_ts{other.m_ts}, m_ys{other.m_ys}, m_accs{other.m_accs} {}
 
   /**
    * @brief Assignment operator
    */
-  SplineVec<D> &operator=(const SplineVec<D> &other) {
+  CubicVec<D> &operator=(const CubicVec<D> &other) {
     // check if assigning to self
     if (this == &other) {
       return *this;
@@ -94,7 +94,7 @@ public:
   /**
    * @brief Destructor
    */
-  ~SplineVec() = default;
+  ~CubicVec() = default;
 
   /**
    * Gets position value given a time input
@@ -103,7 +103,7 @@ public:
    *
    * @returns Position vector at a given time
    */
-  Vector<D> splpos(const double t) {
+  Vector<D> splpos(const double t) const {
     const std::size_t n = m_ts.size();
     Vector<D> res;
 
@@ -125,7 +125,7 @@ public:
    *
    * @returns Velocity vector at a given time
    */
-  Vector<D> splvel(const double t) {
+  Vector<D> splvel(const double t) const {
     const std::size_t n = m_ts.size();
     Vector<D> res;
 
@@ -147,7 +147,7 @@ public:
    *
    * @returns Acceleration vector at a given time
    */
-  Vector<D> splacc(const double t) {
+  Vector<D> splacc(const double t) const {
     const std::size_t n = m_ts.size();
     Vector<D> res;
 
