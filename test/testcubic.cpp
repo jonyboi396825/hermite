@@ -87,7 +87,7 @@ TEST(Cubic, PosTestManyWaypoints) {
   std::vector<Pose<1>> poses{p1, p2, p3, p4};
   Cubic<1> spl{poses};
 
-  auto y1 = spl.getPos(1);
+  auto y1 = spl(1); // testing operator()
   auto y2 = spl.getPos(4);
   auto y3 = spl.getPos(5);
   auto y4 = spl.getPos(7.5);
@@ -136,6 +136,66 @@ TEST(Cubic, AccTestManyWaypoints) {
   EXPECT_NEAR(y2[0], 0.015, 0.01);
   EXPECT_NEAR(y3[0], 0.193, 0.01);
   EXPECT_NEAR(y4[0], 0.785, 0.01);
+}
+
+TEST(Cubic, PosTestManyWaypointsOtherDimensions) {
+  Pose<3> p1{0, {0, 0, 1}, {0, 0, 2}};
+  Pose<3> p2{2, {0, 0, 2}, {0, 0, 0}};
+  Pose<3> p3{5, {0}, {0}};
+  Pose<3> p4{8, {0}, {0, 0, 1}};
+
+  std::vector<Pose<3>> poses{p1, p2, p3, p4};
+  Cubic<3> spl{poses};
+
+  auto y1 = spl.getPos(1);
+  auto y2 = spl.getPos(4);
+  auto y3 = spl.getPos(5);
+  auto y4 = spl.getPos(7.5);
+
+  EXPECT_NEAR(y1[2], 2.105, 0.01);
+  EXPECT_NEAR(y2[2], 0.712, 0.01);
+  EXPECT_NEAR(y3[2], 0, 0.01);
+  EXPECT_NEAR(y4[2], -0.392, 0.01);
+}
+
+TEST(Cubic, VelTestManyWaypointsOtherDimensions) {
+  Pose<3> p1{0, {0, 0, 1}, {0, 0, 2}};
+  Pose<3> p2{2, {0, 0, 2}, {0, 0, 0}};
+  Pose<3> p3{5, {0}, {0}};
+  Pose<3> p4{8, {0}, {0, 0, 1}};
+
+  std::vector<Pose<3>> poses{p1, p2, p3, p4};
+  Cubic<3> spl{poses};
+
+  auto y1 = spl.getVel(1);
+  auto y2 = spl.getVel(4);
+  auto y3 = spl.getVel(5);
+  auto y4 = spl.getVel(7.5);
+
+  EXPECT_NEAR(y1[2], 0.355, 0.01);
+  EXPECT_NEAR(y2[2], -0.749, 0.01);
+  EXPECT_NEAR(y3[2], -0.644, 0.01);
+  EXPECT_NEAR(y4[2], 0.578, 0.01);
+}
+
+TEST(Cubic, AccTestManyWaypointsOtherDimensions) {
+  Pose<3> p1{0, {0, 0, 1}, {0, 0, 2}};
+  Pose<3> p2{2, {0, 0, 2}, {0, 0, 0}};
+  Pose<3> p3{5, {0}, {0}};
+  Pose<3> p4{8, {0}, {0, 0, 1}};
+
+  std::vector<Pose<3>> poses{p1, p2, p3, p4};
+  Cubic<3> spl{poses};
+
+  auto y1 = spl.getAcc(1);
+  auto y2 = spl.getAcc(4);
+  auto y3 = spl.getAcc(5);
+  auto y4 = spl.getAcc(7.5);
+
+  EXPECT_NEAR(y1[2], -1.211, 0.01);
+  EXPECT_NEAR(y2[2], 0.015, 0.01);
+  EXPECT_NEAR(y3[2], 0.193, 0.01);
+  EXPECT_NEAR(y4[2], 0.785, 0.01);
 }
 
 TEST(Cubic, PosTooHighTest) {

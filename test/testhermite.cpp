@@ -394,6 +394,72 @@ TEST(Hermite, AccTestManyWaypoints) {
   EXPECT_NEAR(h.getAcc(6)[0], 2.125, 0.01);
 }
 
+TEST(Hermite, PosTestManyWaypointsOtherDimensions) {
+  Hermite<3> h;
+
+  Pose<3> p0{-3, {0, 0, -2}, {0}};
+  Pose<3> p1{0, {0, 0, 2}, {0, 0, 1}};
+  Pose<3> p2{2, {0, 0, 3}, {0, 0, 2}};
+  Pose<3> p3{6, {0}, {0}};
+
+  h.insert(p0);
+  h.insert(p1);
+  h.insert(p2);
+  h.insert(p3);
+
+  EXPECT_NEAR(h.getPos(-3)[2], -2, 0.01);
+  EXPECT_NEAR(h.getPos(-1.5)[2], -0.375, 0.01);
+  EXPECT_NEAR(h.getPos(0)[2], 2, 0.01);
+  EXPECT_NEAR(h.getPos(1)[2], 2.25, 0.01);
+  EXPECT_NEAR(h.getPos(2)[2], 3, 0.01);
+  EXPECT_NEAR(h.getPos(3.5)[2], 3.227, 0.01);
+  EXPECT_NEAR(h.getPos(6)[2], 0, 0.01);
+}
+
+TEST(Hermite, VelTestManyWaypointsOtherDimensions) {
+  Hermite<3> h;
+
+  Pose<3> p0{-3, {0, 0, -2}, {0}};
+  Pose<3> p1{0, {0, 0, 2}, {0, 0, 1}};
+  Pose<3> p2{2, {0, 0, 3}, {0, 0, 2}};
+  Pose<3> p3{6, {0}, {0}};
+
+  h.insert(p0);
+  h.insert(p1);
+  h.insert(p2);
+  h.insert(p3);
+
+  EXPECT_NEAR(h.getVel(-3)[2], 0, 0.01);
+  EXPECT_NEAR(h.getVel(-1.5)[2], 1.75, 0.01);
+  EXPECT_NEAR(h.getVel(0)[2], 1, 0.01);
+  EXPECT_NEAR(h.getVel(1)[2], 0, 0.01);
+  EXPECT_NEAR(h.getVel(2)[2], 2, 0.01);
+  EXPECT_NEAR(h.getVel(3.5)[2], -1.211, 0.01);
+  EXPECT_NEAR(h.getVel(6)[2], 0, 0.01);
+}
+
+TEST(Hermite, AccTestManyWaypointsOtherDimensinos) {
+  Hermite<3> h;
+
+  Pose<3> p0{-3, {0, 0, -2}, {0}};
+  Pose<3> p1{0, {0, 0, 2}, {0, 0, 1}};
+  Pose<3> p2{2, {0, 0, 3}, {0, 0, 2}};
+  Pose<3> p3{6, {0}, {0}};
+
+  h.insert(p0);
+  h.insert(p1);
+  h.insert(p2);
+  h.insert(p3);
+
+  EXPECT_NEAR(h.getAcc(-3)[2], 2, 0.01);
+  EXPECT_NEAR(h.getAcc(-1.5)[2], 0.333, 0.01);
+  EXPECT_NEAR(h.getAcc(0)[2], -2.5, 0.01);
+  EXPECT_NEAR(h.getAcc(1)[2], 0.5, 0.01);
+  EXPECT_NEAR(h.getAcc(2)[2], -3.125, 0.01);
+  EXPECT_NEAR(h.getAcc(3.5)[2], -1.156, 0.01);
+  EXPECT_NEAR(h.getAcc(6)[2], 2.125, 0.01);
+}
+
 TEST(Hermite, PosTooHighTest) {
   Hermite<1> h;
 
