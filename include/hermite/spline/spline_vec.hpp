@@ -29,7 +29,8 @@ public:
    *
    * @note Initializing with a default constructor and then using the methods
    * will result in undefined behavior. Make sure that you are assigning the
-   * current object to another one with two or more waypoints.
+   * current object to another one with two or more waypoints, or you check
+   * bounds before using any of the methods.
    */
   SplineVec() = default;
 
