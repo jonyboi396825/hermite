@@ -24,7 +24,14 @@ using svector::Vector;
  */
 template <std::size_t D> class SplineVec {
 public:
-  SplineVec() = delete;
+  /**
+   * @brief Default constructor
+   *
+   * @note Initializing with a default constructor and then using the methods
+   * will result in undefined behavior. Make sure that you are assigning the
+   * current object to another one with two or more waypoints.
+   */
+  SplineVec() = default;
 
   /**
    * @brief Constructor
@@ -59,6 +66,28 @@ public:
       spline(m_ts.data(), m_ys[dim].data(), static_cast<int>(n), yp1, ypn,
              m_accs[dim].data());
     }
+  }
+
+  /**
+   * @brief Copy constructor
+   */
+  SplineVec(const SplineVec<D> &other)
+      : m_ts{other.m_ts}, m_ys{other.m_ys}, m_accs{other.m_accs} {}
+
+  /**
+   * @brief Assignment operator
+   */
+  SplineVec<D> &operator=(const SplineVec<D> &other) {
+    // check if assigning to self
+    if (this == &other) {
+      return *this;
+    }
+
+    m_ts = other.m_ts;
+    m_ys = other.m_ys;
+    m_accs = other.m_accs;
+
+    return *this;
   }
 
   /**

@@ -133,3 +133,53 @@ TEST(SplineVec, AccTest) {
   EXPECT_NEAR(y3[0], 0.193, 0.01);
   EXPECT_NEAR(y4[0], 0.785, 0.01);
 }
+
+TEST(SplineVec, CopyTest) {
+  Pose<1> p1{0, {1}, {2}};
+  Pose<1> p2{2, {2}, {0}};
+  Pose<1> p3{5, {0}, {0}};
+  Pose<1> p4{8, {0}, {1}};
+
+  std::vector<Pose<1>> poses{p1, p2, p3, p4};
+  SplineVec<1> spl{poses};
+  SplineVec<1> spl2{spl};
+
+  auto y1 = spl.splacc(1);
+  auto y2 = spl.splacc(4);
+  auto y3 = spl.splacc(5);
+  auto y4 = spl.splacc(7.5);
+
+  EXPECT_NEAR(y1[0], -1.211, 0.01);
+  EXPECT_NEAR(y2[0], 0.015, 0.01);
+  EXPECT_NEAR(y3[0], 0.193, 0.01);
+  EXPECT_NEAR(y4[0], 0.785, 0.01);
+}
+
+TEST(SplineVec, AssignTest) {
+  Pose<1> p1{0, {1}, {2}};
+  Pose<1> p2{2, {2}, {0}};
+  Pose<1> p3{5, {0}, {0}};
+  Pose<1> p4{8, {0}, {1}};
+
+  Pose<1> p5{1, {10}, {2.2}};
+  Pose<1> p6{2.5, {24}, {0.1}};
+  Pose<1> p7{5.2, {0.11}, {2.3}};
+  Pose<1> p8{80, {0.03}, {1.45}};
+
+  std::vector<Pose<1>> poses{p1, p2, p3, p4};
+  std::vector<Pose<1>> poses2{p5, p6, p7, p8};
+  SplineVec<1> spl{poses};
+  SplineVec<1> spl2{poses2};
+
+  spl2 = spl;
+
+  auto y1 = spl.splacc(1);
+  auto y2 = spl.splacc(4);
+  auto y3 = spl.splacc(5);
+  auto y4 = spl.splacc(7.5);
+
+  EXPECT_NEAR(y1[0], -1.211, 0.01);
+  EXPECT_NEAR(y2[0], 0.015, 0.01);
+  EXPECT_NEAR(y3[0], 0.193, 0.01);
+  EXPECT_NEAR(y4[0], 0.785, 0.01);
+}
