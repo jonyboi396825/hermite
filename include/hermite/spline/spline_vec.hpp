@@ -92,6 +92,11 @@ public:
   }
 
   /**
+   * @brief Destructor
+   */
+  ~SplineVec() = default;
+
+  /**
    * Gets position value given a time input
    *
    * @param t Time input

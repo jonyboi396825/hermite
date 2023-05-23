@@ -82,6 +82,11 @@ public:
   }
 
   /**
+   * @brief Destructor
+   */
+  ~Cubic() override = default;
+
+  /**
    * @brief Gets a list of all waypoints
    *
    * @returns A list of all waypoints, sorted in order of time.

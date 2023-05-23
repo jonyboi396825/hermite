@@ -75,7 +75,7 @@ public:
   /**
    * @brief Destructor
    */
-  virtual ~HermiteUnit() override = default;
+  ~HermiteUnit() override = default;
 
   /**
    * @brief Gets position at a certain time

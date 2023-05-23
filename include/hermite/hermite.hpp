@@ -89,6 +89,11 @@ public:
   }
 
   /**
+   * @brief Destructor
+   */
+  ~Hermite() override = default;
+
+  /**
    * @brief Inserts a waypoint
    *
    * @param waypoint Waypoint to insert

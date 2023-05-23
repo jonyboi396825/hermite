@@ -70,6 +70,11 @@ public:
   }
 
   /**
+   * @brief Destructor
+   */
+  ~HermiteSub() override = default;
+
+  /**
    * @brief Gets position at a certain time
    *
    * Same as calling operator()()

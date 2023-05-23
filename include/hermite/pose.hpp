@@ -62,6 +62,11 @@ public:
   }
 
   /**
+   * @brief Destructor
+   */
+  ~Pose() = default;
+
+  /**
    * @brief Gets position vector
    *
    * @returns Position vector
