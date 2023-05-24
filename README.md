@@ -1,59 +1,67 @@
 # Welcome to hermite
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Hermite is a C++ library for computing cubic Hermite splines and natural cubic splines (mainly for robotics).
 
+## Installation
 
+Install the library:
 
-# Prerequisites
-
-Building hermite requires the following software installed:
-
-* A C++11-compliant compiler
-* CMake `>= 3.9`
-* Doxygen (optional, documentation building is skipped if missing)
-* The testing framework [Catch2](https://github.com/catchorg/Catch2) for building the test suite
-
-# Building hermite
-
-The following sequence of commands builds hermite.
-It assumes that your current working directory is the top-level directory
-of the freshly cloned repository:
-
-```
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build .
+```sh
+$ cmake -B build -DCMAKE_BUILD_TYPE=Release
+$ cmake --build build --target install
 ```
 
-The build process can be customized with the following CMake variables,
-which can be set by adding `-D<var>={ON, OFF}` to the `cmake` call:
+Then place the code below:
 
-* `BUILD_TESTING`: Enable building of the test suite (default: `ON`)
-* `BUILD_DOCS`: Enable building the documentation (default: `ON`)
-
-
-
-# Testing hermite
-
-When built according to the above explanation (with `-DBUILD_TESTING=ON`),
-the C++ test suite of `hermite` can be run using
-`ctest` from the build directory:
-
-```
-cd build
-ctest
+```cmake
+cmake_minimum_required(VERSION 3.16.3)
+project(MyProject LANGUAGES CXX)
+ 
+find_package(hermite REQUIRED)
+ 
+add_executable(main main.cpp)
+target_link_libraries(main PRIVATE hermite::hermite)
 ```
 
-
-# Documentation
-
-hermite provides a Doxygen documentation. You can build
-the documentation locally by making sure that `Doxygen` is installed on your system
-and running this command from the top-level build directory:
-
-```
-cmake --build . --target doxygen
+The include path will be like so:
+```cpp
+#include <hermite/cubic.hpp>   // for cubic splines
+#include <hermite/hermite.hpp> // for hermite splines
 ```
 
-The web documentation can then be browsed by opening `doc/html/index.html` in your browser.
+## Example usage
+
+Below is example code:
+
+```cpp
+#include <cstddef>
+#include <iostream>
+
+#include <hermite/hermite.hpp>
+
+int main() {
+  // create hermite object
+  hermite::Hermite<1> h;
+
+  // create poses
+  hermite::Pose<1> p0{-3, {-2}, {0}};
+  hermite::Pose<1> p1{0, {2}, {1}};
+  hermite::Pose<1> p2{2, {3}, {2}};
+  hermite::Pose<1> p3{6, {0}, {0}};
+
+  // add poses into hermite object
+  h.insert(p0);
+  h.insert(p1);
+  h.insert(p2);
+  h.insert(p3);
+
+  // calculate position, velocity, acceleration vectors
+  svector::Vector<1> pos1 = h.getPos(-1.5);
+  svector::Vector<1> vel1 = h.getVel(-1.5);
+  svector::Vector<1> acc1 = h.getAcc(-1.5);
+
+  std::cout << pos1.toString() << std::endl; // <-0.375>
+  std::cout << vel1.toString() << std::endl; // <1.75>
+  std::cout << acc1.toString() << std::endl; // <0.333>
+}
+```
