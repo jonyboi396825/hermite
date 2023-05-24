@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Compilation options
 option(HERMITE_BUILD_DOCS "Enable building of documentation" ON)
 option(HERMITE_BUILD_TESTING "Enable building tests" ON)
+option(HERMITE_BUILD_EXAMPLE "Enable building examples" OFF)
 
 # Add an interface target for our header-only library
 add_library(hermite INTERFACE)
@@ -23,8 +24,10 @@ target_include_directories(hermite INTERFACE
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-# compile the application
-add_subdirectory(app)
+# compile the examples
+if (HERMITE_BUILD_EXAMPLE)
+  add_subdirectory(example)
+endif()
 
 # compile the tests
 include(CTest)

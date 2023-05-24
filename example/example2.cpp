@@ -1,8 +1,14 @@
+/**
+ * @file
+ *
+ * Second example provided in the README
+ */
+
 #include <cstddef>
 #include <iostream>
 
-#include <hermite/hermite.hpp>
 #include <hermite/cubic.hpp>
+#include <hermite/hermite.hpp>
 
 int main() {
   // create hermite object
@@ -43,6 +49,6 @@ int main() {
   double timestep = 0.01;
   while (curTime <= cub.getHighestTime()) {
     std::cout << cub.getPos(curTime).toString() << std::endl;
-    curTime += timestep; 
+    curTime += timestep;
   }
 }
