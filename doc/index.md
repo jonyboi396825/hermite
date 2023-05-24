@@ -88,24 +88,25 @@ The main class that is used is the hermite::Hermite class. This class acts like 
 
 After inserting the waypoints, you can get the position, velocity, and acceleration vectors of the path at any given time within the time interval (from the time given in the first waypoint to the time given in the last waypoint). You would do this by calling hermite::Hermite::getPos() (or hermite::Hermite::operator()()), hermite::Hermite::getVel(), and hermite::Hermite::getAcc(), respectively. These methods return an svector::Vector object.
 
+The hermite::Hermite and hermite::Pose classes comes with a template, where you have to specify the number of dimensions of each points. For example, if you were working in a 2D space, then you would put "2" in the template. The examples below are in 1 dimension, hence the "1" in the template argument.
+
 Example usage:
 
 ```cpp
+#include <cstddef>
 #include <iostream>
 
 #include <hermite/hermite.hpp>
 
-namespace spl = hermite;
-
 int main() {
   // create hermite object
-  spl::Hermite<1> h;
+  hermite::Hermite<1> h;
 
   // create poses
-  spl::Pose<1> p0{-3, {-2}, {0}};
-  spl::Pose<1> p1{0, {2}, {1}};
-  spl::Pose<1> p2{2, {3}, {2}};
-  spl::Pose<1> p3{6, {0}, {0}};
+  hermite::Pose<1> p0{-3, {-2}, {0}};
+  hermite::Pose<1> p1{0, {2}, {1}};
+  hermite::Pose<1> p2{2, {3}, {2}};
+  hermite::Pose<1> p3{6, {0}, {0}};
 
   // add poses into hermite object
   h.insert(p0);
@@ -113,13 +114,13 @@ int main() {
   h.insert(p2);
   h.insert(p3);
 
-  // calculate position vectors
-  auto pos1 = h.getPos(-1.5);
-  auto pos2 = h.getPos(3.5);
-  auto vel1 = h.getVel(-1.5);
-  auto vel2 = h.getVel(3.5);
-  auto acc1 = h.getAcc(-1.5);
-  auto acc2 = h.getAcc(3.5);
+  // calculate position, velocity, acceleration vectors
+  svector::Vector<1> pos1 = h.getPos(-1.5);
+  svector::Vector<1> pos2 = h.getPos(3.5);
+  svector::Vector<1> vel1 = h.getVel(-1.5);
+  svector::Vector<1> vel2 = h.getVel(3.5);
+  svector::Vector<1> acc1 = h.getAcc(-1.5);
+  svector::Vector<1> acc2 = h.getAcc(3.5);
 
   std::cout << pos1.toString() << std::endl; // <-0.375>
   std::cout << pos2.toString() << std::endl; // <3.223>
@@ -127,7 +128,78 @@ int main() {
   std::cout << vel2.toString() << std::endl; // <-1.211>
   std::cout << acc1.toString() << std::endl; // <0.333>
   std::cout << acc2.toString() << std::endl; // <-1.156>
+
+  // looping through positions
+  double curTime = h.getLowestTime();
+  double timestep = 0.01;
+  while (curTime <= h.getHighestTime()) {
+    std::cout << h.getPos(curTime).toString() << std::endl;
+    curTime += timestep; 
+  }
 }
 ```
 
-Additional utility methods can be found by visiting the class's documentation, but these are most likely to be used on a robot.
+Additional utility methods can be found by visiting the class's documentation, but the ones listed above are most likely to be used on a robot.
+
+### Cubics
+
+hermite::Cubic is the main class for the use of cubic splines. It is highly recommended to manage waypoints (inserting, deleting, replacing) through the hermite::Hermite class, then using hermite::Hermite::getAllWaypoints() to feed into the constructor of hermite::Cubic. This is because the constructor of hermite::Cubic expects a vector of hermite::Pose waypoints that are sorted by time and that do not contain any repeats of times. However, to conserve memory, you can directly pass in a vector to the constructor, but you need to make sure that **the waypoints in the vector are sorted by time, and there are no two waypoints that share the same time.**
+
+Unlike hermite::Hermite objects, each hermite::Cubic object can only generate a path for a unique set of waypoints. In other words, it is impossible to generate multiple paths from multiple combinations of waypoints using a single hermite::Cubic object, as you cannot insert or delete waypoints from the object. To generate a new spline for a new set of waypoints, you would need to insert points into or delete points from a hermite::Hermite object then create a new hermite::Cubic object by calling the constructor with the output of hermite::Hermite::getAllWaypoints().
+
+The hermite::Cubic and hermite::Pose classes comes with a template, where you have to specify the number of dimensions of each points. For example, if you were working in a 2D space, then you would put "2" in the template. The examples below are in 1 dimension, hence the "1" in the template argument.
+
+Example usage:
+
+```cpp
+#include <cstddef>
+#include <iostream>
+
+#include <hermite/hermite.hpp>
+#include <hermite/cubic.hpp>
+
+int main() {
+  // create hermite object
+  hermite::Hermite<1> h;
+
+  // create poses
+  hermite::Pose<1> p0{0, {1}, {2}};
+  hermite::Pose<1> p1{2, {2}, {0}};
+  hermite::Pose<1> p2{5, {0}, {0}};
+  hermite::Pose<1> p3{8, {0}, {1}};
+
+  // add poses into hermite object
+  h.insert(p0);
+  h.insert(p1);
+  h.insert(p2);
+  h.insert(p3);
+
+  // create cubic object
+  hermite::Cubic<1> cub{h.getAllWaypoints()};
+
+  // calculate position vectors from cubic
+  svector::Vector<1> pos1 = cub.getPos(1);
+  svector::Vector<1> pos2 = cub.getPos(4);
+  svector::Vector<1> vel1 = cub.getVel(1);
+  svector::Vector<1> vel2 = cub.getVel(4);
+  svector::Vector<1> acc1 = cub.getAcc(1);
+  svector::Vector<1> acc2 = cub.getAcc(4);
+
+  std::cout << pos1.toString() << std::endl; // <2.105>
+  std::cout << pos2.toString() << std::endl; // <0.712>
+  std::cout << vel1.toString() << std::endl; // <0.355>
+  std::cout << vel2.toString() << std::endl; // <-0.749>
+  std::cout << acc1.toString() << std::endl; // <-1.211>
+  std::cout << acc2.toString() << std::endl; // <0.015>
+
+  // looping through positions
+  double curTime = cub.getLowestTime();
+  double timestep = 0.01;
+  while (curTime <= cub.getHighestTime()) {
+    std::cout << cub.getPos(curTime).toString() << std::endl;
+    curTime += timestep; 
+  }
+}
+```
+
+Additional utility methods can be found by visiting the class's documentation, but the ones listed above are most likely to be used on a robot.
