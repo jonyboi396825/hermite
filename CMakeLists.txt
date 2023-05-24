@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 # Compilation options
-option(HERMITE_BUILD_DOCS "Enable building of documentation" ON)
-option(HERMITE_BUILD_TESTING "Enable building tests" ON)
+option(HERMITE_BUILD_DOCS "Enable building of documentation" OFF)
+option(HERMITE_BUILD_TESTING "Enable building tests" OFF)
 option(HERMITE_BUILD_EXAMPLE "Enable building examples" OFF)
 
 # Add an interface target for our header-only library
