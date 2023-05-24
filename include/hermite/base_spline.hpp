@@ -4,6 +4,8 @@
  * A base class for interpolating splines
  */
 
+#pragma once
+
 #include <cstddef>
 
 #include "hermite/base_interpol.hpp"

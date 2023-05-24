@@ -4,6 +4,8 @@
  * Main cubic spline class
  */
 
+#pragma once
+
 #include <cstddef>
 #include <vector>
 
