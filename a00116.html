@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>hermite: Prerequisites</title>
+<title>hermite: Contributing</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,16 +70,19 @@ $(function() {
 </div><!-- top -->
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Prerequisites </div>  </div>
+<div class="title">Contributing </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Building hermite requires the following software installed:</p>
+<div class="textblock"><p>This page shows how you can build the hermite library to contribute.</p>
+<h1><a class="anchor" id="autotoc_md8"></a>
+Prerequisites</h1>
+<p>Building hermite requires the following software installed:</p>
 <ul>
 <li>A C++11-compliant compiler</li>
 <li>CMake <code>&gt;= 3.9</code></li>
 <li>Doxygen (optional, documentation building is skipped if missing)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Building hermite</h1>
 <p>The following sequence of commands builds hermite. It assumes that your current working directory is the top-level directory of the freshly cloned repository:</p>
 <div class="fragment"><div class="line">mkdir build</div>
@@ -91,12 +94,12 @@ Building hermite</h1>
 <li><code>HERMITE_BUILD_TESTING</code>: Enable building of the test suite (default: <code>ON</code>)</li>
 <li><code>HERMITE_BUILD_DOCS</code>: Enable building the documentation (default: <code>ON</code>)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Testing hermite</h1>
 <p>When built according to the above explanation (with <code>-DHERMITE_BUILD_TESTING=ON</code>), the C++ test suite of <code>hermite</code> can be run using <code>ctest</code> from the build directory:</p>
 <div class="fragment"><div class="line">cd build</div>
 <div class="line">ctest</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
 Documentation</h1>
 <p>hermite provides a Doxygen documentation. You can build the documentation locally by making sure that <code>Doxygen</code> is installed on your system and running this command from the top-level build directory:</p>
 <div class="fragment"><div class="line">cmake --build . --target doxygen</div>

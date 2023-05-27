@@ -74,11 +74,11 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Hermite is a C++ library for computing cubic Hermite splines and natural cubic splines (mainly for robotics).</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Splines background</h1>
 <p>Splines are parametric piecewise functions that describe an object's position given a time. A cubic spline describes this motion using a cubic polynomial function for each dimension of the position. To compute splines, it needs to be given a path. Path are given through a <a class="el" href="a00098.html" title="A pose object.">hermite::Pose</a> object. A pose (for our purposes) is a data structure containing a point in time, where each pose describes the time of the pose, the position at that time, and the velocity at that time.</p>
 <p>Cubic hermite splines allow for more local control, giving users the ability so specify both desired positions and velocities at a certain time. Changing one waypoint will only affect the curve that goes through the waypoint and will not affect other parts of the curve. However, each waypoint only offers C1 continuity, which means that only the function and the derivative are continuous at that point. This can lead to high jerk as acceleration is discontinuous, and the curve is not as smooth. On the other hand, natural cubic splines offer C2 continuity at each waypoint, meaning that the function, its derivative, and its second derivative are continuous. This not only makes the curve more smooth but also reduces the jerk as the acceleration is continuous. However, the user loses local control, as editing one waypoint will regenerate the entire curve rather than the curve around the waypoint, and the user cannot specify the velocities of the poses besides the first and the last one.</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Hermite splines</h2>
 <p>Each "piece" of a cubic hermite spline can be given by the following equation:</p>
 <p class="formulaDsp">
@@ -95,7 +95,7 @@ Hermite splines</h2>
 <li>They only offer C1 continuity</li>
 <li>You need to specify time, position, and velocity for every waypoint</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Natural cubic splines</h2>
 <p>Natural cubic splines are Hermite splines, but the velocities at each waypoint are automatically determined to ensure continuous acceleration. In one dimension, each "piece" of a natural cubic spline can be described by:</p>
 <p class="formulaDsp">
@@ -108,10 +108,10 @@ Natural cubic splines</h2>
 <li>They offer C2 continuity</li>
 <li>You need to specify time and position for every waypoint and the velocity for the first and last waypoints</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Hermite library</h1>
 <p>Below gives information about usage of the library.</p>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Installation</h2>
 <p>Install the library:</p>
 <div class="fragment"><div class="line">$ cmake -B build -DCMAKE_BUILD_TYPE=Release</div>
@@ -128,7 +128,10 @@ Installation</h2>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="a00035.html">hermite/hermite.hpp</a>&gt;</span> <span class="comment">// for hermite splines</span></div>
 <div class="ttc" id="aa00023_html"><div class="ttname"><a href="a00023.html">cubic.hpp</a></div></div>
 <div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">hermite.hpp</a></div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md16"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md17"></a>
+Local installation</h3>
+<p>To install locally, you can clone the repository, then copy the folders containing the source code (i.e. the <code>include/hermite</code> folder) into your codebase.</p>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Basic Library Usage</h2>
 <p>The main class that is used is the <a class="el" href="a00094.html" title="Hermite spline class.">hermite::Hermite</a> class. This class acts like a std::map, where different <a class="el" href="a00098.html" title="A pose object.">hermite::Pose</a> waypoint objects can be inserted and removed with logarithmic complexity. Using this class, you need to specify the multiplier for the time. The higher this multiplier, the more accurate the time is stored. However, in the case of robotics, a multiplier of 10 works as time to the first decimal digit is precise enough. Because of this, the default constructor initializes the class with a multiplier of 10. For more information about the multiplier, visit the documentation about the class, which can be accessed above.</p>
 <p>After inserting the waypoints, you can get the position, velocity, and acceleration vectors of the path at any given time within the time interval (from the time given in the first waypoint to the time given in the last waypoint). You would do this by calling <a class="el" href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75" title="Gets position at a certain time.">hermite::Hermite::getPos()</a> (or <a class="el" href="a00070.html#a06163d131f6e36cd9a66dda2d9792db4" title="Gets value of the interpolation function at a certain point.">hermite::Hermite::operator()()</a>), <a class="el" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a" title="Gets velocity at a certain time.">hermite::Hermite::getVel()</a>, and <a class="el" href="a00094.html#af84a7647eace564ce581daaa4b7a3248" title="Gets acceleration of the function at a certain time.">hermite::Hermite::getAcc()</a>, respectively. These methods return an <a class="el" href="a00102.html" title="A base vector representation.">svector::Vector</a> object.</p>
@@ -189,7 +192,7 @@ Basic Library Usage</h2>
 <div class="ttc" id="aa00102_html"><div class="ttname"><a href="a00102.html">svector::Vector</a></div><div class="ttdoc">A base vector representation.</div><div class="ttdef"><b>Definition:</b> simplevectors.hpp:63</div></div>
 <div class="ttc" id="aa00102_html_a706197199863f1748ce354de928a13de"><div class="ttname"><a href="a00102.html#a706197199863f1748ce354de928a13de">svector::Vector::toString</a></div><div class="ttdeci">virtual std::string toString() const</div><div class="ttdoc">Returns string form of vector.</div><div class="ttdef"><b>Definition:</b> simplevectors.hpp:182</div></div>
 </div><!-- fragment --><p>Additional utility methods can be found by visiting the class's documentation, but the ones listed above are most likely to be used on a robot.</p>
-<h3><a class="anchor" id="autotoc_md17"></a>
+<h3><a class="anchor" id="autotoc_md19"></a>
 Cubics</h3>
 <p><a class="el" href="a00082.html" title="A natural cubic spline.">hermite::Cubic</a> is the main class for the use of cubic splines. It is highly recommended to manage waypoints (inserting, deleting, replacing) through the <a class="el" href="a00094.html" title="Hermite spline class.">hermite::Hermite</a> class, then using <a class="el" href="a00094.html#a92fc84031056481636a3395e86f4dea1" title="Gets a list of all waypoints.">hermite::Hermite::getAllWaypoints()</a> to feed into the constructor of <a class="el" href="a00082.html" title="A natural cubic spline.">hermite::Cubic</a>. This is because the constructor of <a class="el" href="a00082.html" title="A natural cubic spline.">hermite::Cubic</a> expects a vector of <a class="el" href="a00098.html" title="A pose object.">hermite::Pose</a> waypoints that are sorted by time and that do not contain any repeats of times. However, to conserve memory, you can directly pass in a vector to the constructor, but you need to make sure that <b>the waypoints in the vector are sorted by time, and there are no two waypoints that share the same time.</b></p>
 <p>Unlike <a class="el" href="a00094.html" title="Hermite spline class.">hermite::Hermite</a> objects, each <a class="el" href="a00082.html" title="A natural cubic spline.">hermite::Cubic</a> object can only generate a path for a unique set of waypoints. In other words, it is impossible to generate multiple paths from multiple combinations of waypoints using a single <a class="el" href="a00082.html" title="A natural cubic spline.">hermite::Cubic</a> object, as you cannot insert or delete waypoints from the object. To generate a new spline for a new set of waypoints, you would need to insert points into or delete points from a <a class="el" href="a00094.html" title="Hermite spline class.">hermite::Hermite</a> object then create a new <a class="el" href="a00082.html" title="A natural cubic spline.">hermite::Cubic</a> object by calling the constructor with the output of <a class="el" href="a00094.html#a92fc84031056481636a3395e86f4dea1" title="Gets a list of all waypoints.">hermite::Hermite::getAllWaypoints()</a>.</p>
