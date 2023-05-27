@@ -134,12 +134,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a29d2d35952544428d53cf1115f8d8801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00094.html#a29d2d35952544428d53cf1115f8d8801">insertOrReplace</a> (const <a class="el" href="a00098.html">Pose</a>&lt; D &gt; &amp;waypoint)</td></tr>
 <tr class="memdesc:a29d2d35952544428d53cf1115f8d8801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a waypoint if it doesn't exist, otherwise replaces the waypoint.  <a href="a00094.html#a29d2d35952544428d53cf1115f8d8801">More...</a><br /></td></tr>
 <tr class="separator:a29d2d35952544428d53cf1115f8d8801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81df75113de2944b61fcc89d94c6707f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00094.html#a81df75113de2944b61fcc89d94c6707f">exists</a> (const <a class="el" href="a00098.html">Pose</a>&lt; D &gt; &amp;waypoint)</td></tr>
-<tr class="memdesc:a81df75113de2944b61fcc89d94c6707f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint exists.  <a href="a00094.html#a81df75113de2944b61fcc89d94c6707f">More...</a><br /></td></tr>
-<tr class="separator:a81df75113de2944b61fcc89d94c6707f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee7697c99fe9c1feebe187edbd5d44e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00094.html#aee7697c99fe9c1feebe187edbd5d44e6">exists</a> (const double time)</td></tr>
-<tr class="memdesc:aee7697c99fe9c1feebe187edbd5d44e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint at a certain time exists.  <a href="a00094.html#aee7697c99fe9c1feebe187edbd5d44e6">More...</a><br /></td></tr>
-<tr class="separator:aee7697c99fe9c1feebe187edbd5d44e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52e6d29de2903a53347a15ac2093dd2c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">exists</a> (const <a class="el" href="a00098.html">Pose</a>&lt; D &gt; &amp;waypoint) const</td></tr>
+<tr class="memdesc:a52e6d29de2903a53347a15ac2093dd2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint exists.  <a href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">More...</a><br /></td></tr>
+<tr class="separator:a52e6d29de2903a53347a15ac2093dd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b4b6ac98c4e39b6083e5422f6b226b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00094.html#a8b4b6ac98c4e39b6083e5422f6b226b4">exists</a> (const double time) const</td></tr>
+<tr class="memdesc:a8b4b6ac98c4e39b6083e5422f6b226b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a waypoint at a certain time exists.  <a href="a00094.html#a8b4b6ac98c4e39b6083e5422f6b226b4">More...</a><br /></td></tr>
+<tr class="separator:a8b4b6ac98c4e39b6083e5422f6b226b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a989d6eb21783af0472c2eec90a45e3d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">erase</a> (const <a class="el" href="a00098.html">Pose</a>&lt; D &gt; &amp;waypoint)</td></tr>
 <tr class="memdesc:a989d6eb21783af0472c2eec90a45e3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a waypoint.  <a href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">More...</a><br /></td></tr>
 <tr class="separator:a989d6eb21783af0472c2eec90a45e3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -347,8 +347,8 @@ If the waypoint's time is not precise enough, then this may erase a waypoint eve
 
 </div>
 </div>
-<a id="aee7697c99fe9c1feebe187edbd5d44e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee7697c99fe9c1feebe187edbd5d44e6">&#9670;&nbsp;</a></span>exists() <span class="overload">[1/2]</span></h2>
+<a id="a8b4b6ac98c4e39b6083e5422f6b226b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b4b6ac98c4e39b6083e5422f6b226b4">&#9670;&nbsp;</a></span>exists() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,7 +363,7 @@ template&lt;std::size_t D&gt; </div>
           <td>(</td>
           <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>time</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -384,8 +384,8 @@ template&lt;std::size_t D&gt; </div>
 
 </div>
 </div>
-<a id="a81df75113de2944b61fcc89d94c6707f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81df75113de2944b61fcc89d94c6707f">&#9670;&nbsp;</a></span>exists() <span class="overload">[2/2]</span></h2>
+<a id="a52e6d29de2903a53347a15ac2093dd2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52e6d29de2903a53347a15ac2093dd2c">&#9670;&nbsp;</a></span>exists() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -400,7 +400,7 @@ template&lt;std::size_t D&gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="a00098.html">Pose</a>&lt; D &gt; &amp;&#160;</td>
           <td class="paramname"><em>waypoint</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>

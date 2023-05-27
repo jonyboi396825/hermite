@@ -118,7 +118,7 @@ $(function() {
 <div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a00094.html#ae31b2c219510877bbcad4cf2be15974e">   94</a></span>&#160;  <a class="code" href="a00094.html#ae31b2c219510877bbcad4cf2be15974e">~Hermite</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a00094.html#aa9485e53e3bac4e4e3d72be8691119cf">  104</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="a00094.html#aa9485e53e3bac4e4e3d72be8691119cf">insert</a>(<span class="keyword">const</span> <a class="code" href="a00098.html">Pose&lt;D&gt;</a> &amp;waypoint) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a00094.html#a81df75113de2944b61fcc89d94c6707f">exists</a>(waypoint)) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">exists</a>(waypoint)) {</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
@@ -127,7 +127,7 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  }</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="a00094.html#a97da3dde71a3dfae71a4d60209c710f3">  122</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="a00094.html#a97da3dde71a3dfae71a4d60209c710f3">replace</a>(<span class="keyword">const</span> <a class="code" href="a00098.html">Pose&lt;D&gt;</a> &amp;waypoint) {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a00094.html#a81df75113de2944b61fcc89d94c6707f">exists</a>(waypoint)) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">exists</a>(waypoint)) {</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
@@ -140,143 +140,145 @@ $(function() {
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    m_waypoints[tRounded] = waypoint;</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  }</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="a00094.html#a81df75113de2944b61fcc89d94c6707f">  151</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="a00094.html#a81df75113de2944b61fcc89d94c6707f">exists</a>(<span class="keyword">const</span> <a class="code" href="a00098.html">Pose&lt;D&gt;</a> &amp;waypoint) { <span class="keywordflow">return</span> <a class="code" href="a00094.html#a81df75113de2944b61fcc89d94c6707f">exists</a>(waypoint.<a class="code" href="a00098.html#aacbfeea5fa111695c90cd134f74f57a3">getTime</a>()); }</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="a00094.html#aee7697c99fe9c1feebe187edbd5d44e6">  160</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="a00094.html#aee7697c99fe9c1feebe187edbd5d44e6">exists</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> time) {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> tRounded = roundTime(time);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">return</span> m_waypoints.find(tRounded) != m_waypoints.end();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  }</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">  175</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">erase</a>(<span class="keyword">const</span> <a class="code" href="a00098.html">Pose&lt;D&gt;</a> &amp;waypoint) { <a class="code" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">erase</a>(waypoint.<a class="code" href="a00098.html#aacbfeea5fa111695c90cd134f74f57a3">getTime</a>()); }</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="a00094.html#afba68186501dfe74380a898c65f246da">  186</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="a00094.html#afba68186501dfe74380a898c65f246da">erase</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> time) {</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> tRounded = roundTime(time);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="comment">// check if exists</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keyword">auto</span> it = m_waypoints.find(tRounded);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">if</span> (it == m_waypoints.end()) {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    m_waypoints.erase(it);</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  }</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="a00094.html#a92fc84031056481636a3395e86f4dea1">  203</a></span>&#160;  std::vector&lt;Pose&lt;D&gt;&gt; <a class="code" href="a00094.html#a92fc84031056481636a3395e86f4dea1">getAllWaypoints</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    std::vector&lt;Pose&lt;D&gt;&gt; res;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;it : m_waypoints) {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;      res.push_back(it.second);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  }</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">  220</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">getLowestTime</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() == 0) {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keyword">auto</span> firstIt = m_waypoints.begin();</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">return</span> firstIt-&gt;second.getTime();</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">  237</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">getHighestTime</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() == 0) {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keyword">auto</span> lastIt = m_waypoints.rbegin();</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">return</span> lastIt-&gt;second.getTime();</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  }</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75">  260</a></span>&#160;  <a class="code" href="a00102.html">Vector&lt;D&gt;</a> <a class="code" href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75">getPos</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="a00102.html">Vector&lt;D&gt;</a> res;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">auto</span> func = getSub(t);</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keywordflow">return</span> func.getPos(t);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  }</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">  282</a></span>&#160;  <a class="code" href="a00102.html">Vector&lt;D&gt;</a> <a class="code" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">getVel</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <a class="code" href="a00102.html">Vector&lt;D&gt;</a> res;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;      <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keyword">auto</span> func = getSub(t);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> func.getVel(t);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  }</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="a00094.html#af84a7647eace564ce581daaa4b7a3248">  306</a></span>&#160;  <a class="code" href="a00102.html">Vector&lt;D&gt;</a> <a class="code" href="a00094.html#af84a7647eace564ce581daaa4b7a3248">getAcc</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <a class="code" href="a00102.html">Vector&lt;D&gt;</a> res;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    }</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keyword">auto</span> func = getSub(t);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">return</span> func.getAcc(t);</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  }</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="a00094.html#a76b535451c29b73309cee0ea1c8bd53d">  328</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="a00094.html#a76b535451c29b73309cee0ea1c8bd53d">getLength</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> timeStep)<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">double</span> res = 0.0;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;      <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    }</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keywordtype">double</span> time = <a class="code" href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">getLowestTime</a>() + timeStep;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> timeEnd = <a class="code" href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">getHighestTime</a>();</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordflow">while</span> (time &lt;= timeEnd) {</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;      <span class="keyword">auto</span> vel = <a class="code" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">getVel</a>(time);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      <span class="keyword">auto</span> speed = magn(vel);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;      res += speed * timeStep;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;      time += timeStep;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    }</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  }</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  <span class="keywordtype">double</span> m_multiplier;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  std::map&lt;std::int64_t, Pose&lt;D&gt;&gt; m_waypoints;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;  std::int64_t roundTime(<span class="keywordtype">double</span> t)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    t *= m_multiplier;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>std::int64_t<span class="keyword">&gt;</span>(t);</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  }</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  HermiteSub&lt;D&gt; getSub(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> tRound = roundTime(t);</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keyword">auto</span> itLower = m_waypoints.upper_bound(tRound);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordflow">if</span> (itLower == m_waypoints.begin()) {</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;      itLower++;</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    }</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">if</span> (itLower == m_waypoints.end()) {</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;      itLower--;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    }</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keyword">auto</span> itUpper = itLower;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    itLower--;</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> objUpper = itUpper-&gt;second;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> objLower = itLower-&gt;second;</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> p0 = objLower.getPos();</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> pf = objUpper.getPos();</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> v0 = objLower.getVel();</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> vf = objUpper.getVel();</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> lowerT = objLower.getTime();</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> upperT = objUpper.getTime();</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    HermiteSub&lt;D&gt; res{p0, pf, v0, vf, lowerT, upperT};</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  }</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;};</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;} <span class="comment">// namespace hermite</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">  151</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">exists</a>(<span class="keyword">const</span> <a class="code" href="a00098.html">Pose&lt;D&gt;</a> &amp;waypoint)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">exists</a>(waypoint.<a class="code" href="a00098.html#aacbfeea5fa111695c90cd134f74f57a3">getTime</a>());</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="a00094.html#a8b4b6ac98c4e39b6083e5422f6b226b4">  162</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="a00094.html#a8b4b6ac98c4e39b6083e5422f6b226b4">exists</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> time)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> tRounded = roundTime(time);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> m_waypoints.find(tRounded) != m_waypoints.end();</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">  177</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">erase</a>(<span class="keyword">const</span> <a class="code" href="a00098.html">Pose&lt;D&gt;</a> &amp;waypoint) { <a class="code" href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">erase</a>(waypoint.<a class="code" href="a00098.html#aacbfeea5fa111695c90cd134f74f57a3">getTime</a>()); }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="a00094.html#afba68186501dfe74380a898c65f246da">  188</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="a00094.html#afba68186501dfe74380a898c65f246da">erase</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> time) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> tRounded = roundTime(time);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="comment">// check if exists</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">auto</span> it = m_waypoints.find(tRounded);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">if</span> (it == m_waypoints.end()) {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    m_waypoints.erase(it);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="a00094.html#a92fc84031056481636a3395e86f4dea1">  205</a></span>&#160;  std::vector&lt;Pose&lt;D&gt;&gt; <a class="code" href="a00094.html#a92fc84031056481636a3395e86f4dea1">getAllWaypoints</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    std::vector&lt;Pose&lt;D&gt;&gt; res;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;it : m_waypoints) {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;      res.push_back(it.second);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">  222</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">getLowestTime</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() == 0) {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;      <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keyword">auto</span> firstIt = m_waypoints.begin();</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordflow">return</span> firstIt-&gt;second.getTime();</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  }</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">  239</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">getHighestTime</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() == 0) {</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">auto</span> lastIt = m_waypoints.rbegin();</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">return</span> lastIt-&gt;second.getTime();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  }</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75">  262</a></span>&#160;  <a class="code" href="a00102.html">Vector&lt;D&gt;</a> <a class="code" href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75">getPos</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <a class="code" href="a00102.html">Vector&lt;D&gt;</a> res;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;      <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    }</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keyword">auto</span> func = getSub(t);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">return</span> func.getPos(t);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">  284</a></span>&#160;  <a class="code" href="a00102.html">Vector&lt;D&gt;</a> <a class="code" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">getVel</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <a class="code" href="a00102.html">Vector&lt;D&gt;</a> res;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keyword">auto</span> func = getSub(t);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">return</span> func.getVel(t);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  }</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
+<div class="line"><a name="l00308"></a><span class="lineno"><a class="line" href="a00094.html#af84a7647eace564ce581daaa4b7a3248">  308</a></span>&#160;  <a class="code" href="a00102.html">Vector&lt;D&gt;</a> <a class="code" href="a00094.html#af84a7647eace564ce581daaa4b7a3248">getAcc</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <a class="code" href="a00102.html">Vector&lt;D&gt;</a> res;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;      <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keyword">auto</span> func = getSub(t);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span> func.getAcc(t);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  }</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
+<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="a00094.html#a76b535451c29b73309cee0ea1c8bd53d">  330</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="a00094.html#a76b535451c29b73309cee0ea1c8bd53d">getLength</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> timeStep)<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordtype">double</span> res = 0.0;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keywordflow">if</span> (m_waypoints.size() &lt; 2) {</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;      <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    }</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordtype">double</span> time = <a class="code" href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">getLowestTime</a>() + timeStep;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> timeEnd = <a class="code" href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">getHighestTime</a>();</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">while</span> (time &lt;= timeEnd) {</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;      <span class="keyword">auto</span> vel = <a class="code" href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">getVel</a>(time);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;      <span class="keyword">auto</span> speed = magn(vel);</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;      res += speed * timeStep;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;      time += timeStep;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    }</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  }</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  <span class="keywordtype">double</span> m_multiplier;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  std::map&lt;std::int64_t, Pose&lt;D&gt;&gt; m_waypoints;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  std::int64_t roundTime(<span class="keywordtype">double</span> t)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    t *= m_multiplier;</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>std::int64_t<span class="keyword">&gt;</span>(t);</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  }</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;  HermiteSub&lt;D&gt; getSub(<span class="keyword">const</span> <span class="keywordtype">double</span> t)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> tRound = roundTime(t);</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keyword">auto</span> itLower = m_waypoints.upper_bound(tRound);</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">if</span> (itLower == m_waypoints.begin()) {</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;      itLower++;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    }</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">if</span> (itLower == m_waypoints.end()) {</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;      itLower--;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keyword">auto</span> itUpper = itLower;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    itLower--;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> objUpper = itUpper-&gt;second;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> objLower = itLower-&gt;second;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> p0 = objLower.getPos();</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> pf = objUpper.getPos();</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> v0 = objLower.getVel();</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> vf = objUpper.getVel();</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> lowerT = objLower.getTime();</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> upperT = objUpper.getTime();</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    HermiteSub&lt;D&gt; res{p0, pf, v0, vf, lowerT, upperT};</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;};</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;} <span class="comment">// namespace hermite</span></div>
 <div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">base_spline.hpp</a></div></div>
 <div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">hermite_sub.hpp</a></div></div>
 <div class="ttc" id="aa00038_html"><div class="ttname"><a href="a00038.html">pose.hpp</a></div></div>
@@ -284,25 +286,25 @@ $(function() {
 <div class="ttc" id="aa00041_html_a435afec5e7f1b9f866b3ab9e2d104bf7"><div class="ttname"><a href="a00041.html#a435afec5e7f1b9f866b3ab9e2d104bf7">svector::magn</a></div><div class="ttdeci">T magn(const Vector&lt; D, T &gt; &amp;v)</div><div class="ttdoc">Gets the magnitude of the vector.</div><div class="ttdef"><b>Definition:</b> simplevectors.hpp:1281</div></div>
 <div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">hermite::BaseSpline</a></div><div class="ttdoc">Abstract base class for interpolating splines.</div><div class="ttdef"><b>Definition:</b> base_spline.hpp:20</div></div>
 <div class="ttc" id="aa00094_html"><div class="ttname"><a href="a00094.html">hermite::Hermite</a></div><div class="ttdoc">Hermite spline class.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:49</div></div>
-<div class="ttc" id="aa00094_html_a20a66c9d19ae2945d646e548a4ed7f9e"><div class="ttname"><a href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">hermite::Hermite::getHighestTime</a></div><div class="ttdeci">double getHighestTime() const override</div><div class="ttdoc">Gets the upper bound of the domain of the piecewise spline function, which is the last time (highest ...</div><div class="ttdef"><b>Definition:</b> hermite.hpp:237</div></div>
-<div class="ttc" id="aa00094_html_a26443d032a1d6cebe9dd42e36553ab75"><div class="ttname"><a href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75">hermite::Hermite::getPos</a></div><div class="ttdeci">Vector&lt; D &gt; getPos(const double t) const override</div><div class="ttdoc">Gets position at a certain time.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:260</div></div>
+<div class="ttc" id="aa00094_html_a20a66c9d19ae2945d646e548a4ed7f9e"><div class="ttname"><a href="a00094.html#a20a66c9d19ae2945d646e548a4ed7f9e">hermite::Hermite::getHighestTime</a></div><div class="ttdeci">double getHighestTime() const override</div><div class="ttdoc">Gets the upper bound of the domain of the piecewise spline function, which is the last time (highest ...</div><div class="ttdef"><b>Definition:</b> hermite.hpp:239</div></div>
+<div class="ttc" id="aa00094_html_a26443d032a1d6cebe9dd42e36553ab75"><div class="ttname"><a href="a00094.html#a26443d032a1d6cebe9dd42e36553ab75">hermite::Hermite::getPos</a></div><div class="ttdeci">Vector&lt; D &gt; getPos(const double t) const override</div><div class="ttdoc">Gets position at a certain time.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:262</div></div>
 <div class="ttc" id="aa00094_html_a29d2d35952544428d53cf1115f8d8801"><div class="ttname"><a href="a00094.html#a29d2d35952544428d53cf1115f8d8801">hermite::Hermite::insertOrReplace</a></div><div class="ttdeci">void insertOrReplace(const Pose&lt; D &gt; &amp;waypoint)</div><div class="ttdoc">Inserts a waypoint if it doesn't exist, otherwise replaces the waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:137</div></div>
+<div class="ttc" id="aa00094_html_a52e6d29de2903a53347a15ac2093dd2c"><div class="ttname"><a href="a00094.html#a52e6d29de2903a53347a15ac2093dd2c">hermite::Hermite::exists</a></div><div class="ttdeci">bool exists(const Pose&lt; D &gt; &amp;waypoint) const</div><div class="ttdoc">Checks if a waypoint exists.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:151</div></div>
 <div class="ttc" id="aa00094_html_a671fbf3d26d3e2eae860bf29306000e9"><div class="ttname"><a href="a00094.html#a671fbf3d26d3e2eae860bf29306000e9">hermite::Hermite::Hermite</a></div><div class="ttdeci">Hermite()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:58</div></div>
-<div class="ttc" id="aa00094_html_a76b535451c29b73309cee0ea1c8bd53d"><div class="ttname"><a href="a00094.html#a76b535451c29b73309cee0ea1c8bd53d">hermite::Hermite::getLength</a></div><div class="ttdeci">double getLength(const double timeStep) const override</div><div class="ttdoc">Gets arc length.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:328</div></div>
-<div class="ttc" id="aa00094_html_a81df75113de2944b61fcc89d94c6707f"><div class="ttname"><a href="a00094.html#a81df75113de2944b61fcc89d94c6707f">hermite::Hermite::exists</a></div><div class="ttdeci">bool exists(const Pose&lt; D &gt; &amp;waypoint)</div><div class="ttdoc">Checks if a waypoint exists.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:151</div></div>
-<div class="ttc" id="aa00094_html_a8e8ed3effcdf03696cd7fd53edfd021a"><div class="ttname"><a href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">hermite::Hermite::getVel</a></div><div class="ttdeci">Vector&lt; D &gt; getVel(const double t) const override</div><div class="ttdoc">Gets velocity at a certain time.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:282</div></div>
-<div class="ttc" id="aa00094_html_a92fc84031056481636a3395e86f4dea1"><div class="ttname"><a href="a00094.html#a92fc84031056481636a3395e86f4dea1">hermite::Hermite::getAllWaypoints</a></div><div class="ttdeci">std::vector&lt; Pose&lt; D &gt; &gt; getAllWaypoints() const</div><div class="ttdoc">Gets a list of all waypoints.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:203</div></div>
+<div class="ttc" id="aa00094_html_a76b535451c29b73309cee0ea1c8bd53d"><div class="ttname"><a href="a00094.html#a76b535451c29b73309cee0ea1c8bd53d">hermite::Hermite::getLength</a></div><div class="ttdeci">double getLength(const double timeStep) const override</div><div class="ttdoc">Gets arc length.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:330</div></div>
+<div class="ttc" id="aa00094_html_a8b4b6ac98c4e39b6083e5422f6b226b4"><div class="ttname"><a href="a00094.html#a8b4b6ac98c4e39b6083e5422f6b226b4">hermite::Hermite::exists</a></div><div class="ttdeci">bool exists(const double time) const</div><div class="ttdoc">Checks if a waypoint at a certain time exists.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:162</div></div>
+<div class="ttc" id="aa00094_html_a8e8ed3effcdf03696cd7fd53edfd021a"><div class="ttname"><a href="a00094.html#a8e8ed3effcdf03696cd7fd53edfd021a">hermite::Hermite::getVel</a></div><div class="ttdeci">Vector&lt; D &gt; getVel(const double t) const override</div><div class="ttdoc">Gets velocity at a certain time.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:284</div></div>
+<div class="ttc" id="aa00094_html_a92fc84031056481636a3395e86f4dea1"><div class="ttname"><a href="a00094.html#a92fc84031056481636a3395e86f4dea1">hermite::Hermite::getAllWaypoints</a></div><div class="ttdeci">std::vector&lt; Pose&lt; D &gt; &gt; getAllWaypoints() const</div><div class="ttdoc">Gets a list of all waypoints.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:205</div></div>
 <div class="ttc" id="aa00094_html_a97da3dde71a3dfae71a4d60209c710f3"><div class="ttname"><a href="a00094.html#a97da3dde71a3dfae71a4d60209c710f3">hermite::Hermite::replace</a></div><div class="ttdeci">void replace(const Pose&lt; D &gt; &amp;waypoint)</div><div class="ttdoc">Replaces a waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:122</div></div>
-<div class="ttc" id="aa00094_html_a989d6eb21783af0472c2eec90a45e3d0"><div class="ttname"><a href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">hermite::Hermite::erase</a></div><div class="ttdeci">void erase(const Pose&lt; D &gt; &amp;waypoint)</div><div class="ttdoc">Removes a waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:175</div></div>
+<div class="ttc" id="aa00094_html_a989d6eb21783af0472c2eec90a45e3d0"><div class="ttname"><a href="a00094.html#a989d6eb21783af0472c2eec90a45e3d0">hermite::Hermite::erase</a></div><div class="ttdeci">void erase(const Pose&lt; D &gt; &amp;waypoint)</div><div class="ttdoc">Removes a waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:177</div></div>
 <div class="ttc" id="aa00094_html_aa9485e53e3bac4e4e3d72be8691119cf"><div class="ttname"><a href="a00094.html#aa9485e53e3bac4e4e3d72be8691119cf">hermite::Hermite::insert</a></div><div class="ttdeci">void insert(const Pose&lt; D &gt; &amp;waypoint)</div><div class="ttdoc">Inserts a waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:104</div></div>
 <div class="ttc" id="aa00094_html_ac2d0d0bcc1b1e69cf6bfc187886ccd9e"><div class="ttname"><a href="a00094.html#ac2d0d0bcc1b1e69cf6bfc187886ccd9e">hermite::Hermite::Hermite</a></div><div class="ttdeci">Hermite(const Hermite&lt; D &gt; &amp;other)</div><div class="ttdoc">Copy constructor.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:71</div></div>
-<div class="ttc" id="aa00094_html_ac8f9e896ef94b5138e0003612fb4db40"><div class="ttname"><a href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">hermite::Hermite::getLowestTime</a></div><div class="ttdeci">double getLowestTime() const override</div><div class="ttdoc">Gets the lower bound of the domain of the piecewise spline function, which is the first time (lowest ...</div><div class="ttdef"><b>Definition:</b> hermite.hpp:220</div></div>
+<div class="ttc" id="aa00094_html_ac8f9e896ef94b5138e0003612fb4db40"><div class="ttname"><a href="a00094.html#ac8f9e896ef94b5138e0003612fb4db40">hermite::Hermite::getLowestTime</a></div><div class="ttdeci">double getLowestTime() const override</div><div class="ttdoc">Gets the lower bound of the domain of the piecewise spline function, which is the first time (lowest ...</div><div class="ttdef"><b>Definition:</b> hermite.hpp:222</div></div>
 <div class="ttc" id="aa00094_html_acda2c8fb657017e1a19ea441a8c59b12"><div class="ttname"><a href="a00094.html#acda2c8fb657017e1a19ea441a8c59b12">hermite::Hermite::operator=</a></div><div class="ttdeci">Hermite&lt; D &gt; &amp; operator=(const Hermite&lt; D &gt; &amp;other)</div><div class="ttdoc">Assignment operator.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:79</div></div>
 <div class="ttc" id="aa00094_html_ad5932c9b833dac78b40d74c0b248ab70"><div class="ttname"><a href="a00094.html#ad5932c9b833dac78b40d74c0b248ab70">hermite::Hermite::Hermite</a></div><div class="ttdeci">Hermite(const double multiplier)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:66</div></div>
 <div class="ttc" id="aa00094_html_ae31b2c219510877bbcad4cf2be15974e"><div class="ttname"><a href="a00094.html#ae31b2c219510877bbcad4cf2be15974e">hermite::Hermite::~Hermite</a></div><div class="ttdeci">~Hermite() override=default</div><div class="ttdoc">Destructor.</div></div>
-<div class="ttc" id="aa00094_html_aee7697c99fe9c1feebe187edbd5d44e6"><div class="ttname"><a href="a00094.html#aee7697c99fe9c1feebe187edbd5d44e6">hermite::Hermite::exists</a></div><div class="ttdeci">bool exists(const double time)</div><div class="ttdoc">Checks if a waypoint at a certain time exists.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:160</div></div>
-<div class="ttc" id="aa00094_html_af84a7647eace564ce581daaa4b7a3248"><div class="ttname"><a href="a00094.html#af84a7647eace564ce581daaa4b7a3248">hermite::Hermite::getAcc</a></div><div class="ttdeci">Vector&lt; D &gt; getAcc(const double t) const override</div><div class="ttdoc">Gets acceleration of the function at a certain time.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:306</div></div>
-<div class="ttc" id="aa00094_html_afba68186501dfe74380a898c65f246da"><div class="ttname"><a href="a00094.html#afba68186501dfe74380a898c65f246da">hermite::Hermite::erase</a></div><div class="ttdeci">void erase(const double time)</div><div class="ttdoc">Removes a waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:186</div></div>
+<div class="ttc" id="aa00094_html_af84a7647eace564ce581daaa4b7a3248"><div class="ttname"><a href="a00094.html#af84a7647eace564ce581daaa4b7a3248">hermite::Hermite::getAcc</a></div><div class="ttdeci">Vector&lt; D &gt; getAcc(const double t) const override</div><div class="ttdoc">Gets acceleration of the function at a certain time.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:308</div></div>
+<div class="ttc" id="aa00094_html_afba68186501dfe74380a898c65f246da"><div class="ttname"><a href="a00094.html#afba68186501dfe74380a898c65f246da">hermite::Hermite::erase</a></div><div class="ttdeci">void erase(const double time)</div><div class="ttdoc">Removes a waypoint.</div><div class="ttdef"><b>Definition:</b> hermite.hpp:188</div></div>
 <div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">hermite::Pose</a></div><div class="ttdoc">A pose object.</div><div class="ttdef"><b>Definition:</b> pose.hpp:23</div></div>
 <div class="ttc" id="aa00098_html_aacbfeea5fa111695c90cd134f74f57a3"><div class="ttname"><a href="a00098.html#aacbfeea5fa111695c90cd134f74f57a3">hermite::Pose::getTime</a></div><div class="ttdeci">double getTime() const</div><div class="ttdoc">Gets time.</div><div class="ttdef"><b>Definition:</b> pose.hpp:88</div></div>
 <div class="ttc" id="aa00102_html"><div class="ttname"><a href="a00102.html">svector::Vector</a></div><div class="ttdoc">A base vector representation.</div><div class="ttdef"><b>Definition:</b> simplevectors.hpp:63</div></div>
