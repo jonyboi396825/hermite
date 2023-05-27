@@ -1,3 +1,7 @@
+# Contributing
+
+This page shows how you can build the hermite library to contribute.
+
 # Prerequisites
 
 Building hermite requires the following software installed:

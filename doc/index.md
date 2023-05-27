@@ -82,6 +82,10 @@ The include path will be like so:
 #include <hermite/hermite.hpp> // for hermite splines
 ```
 
+### Local installation
+
+To install locally, you can clone the repository, then copy the folders containing the source code (i.e. the `include/hermite` folder) into your codebase.
+
 ## Basic Library Usage
 
 The main class that is used is the hermite::Hermite class. This class acts like a std::map, where different hermite::Pose waypoint objects can be inserted and removed with logarithmic complexity. Using this class, you need to specify the multiplier for the time. The higher this multiplier, the more accurate the time is stored. However, in the case of robotics, a multiplier of 10 works as time to the first decimal digit is precise enough. Because of this, the default constructor initializes the class with a multiplier of 10. For more information about the multiplier, visit the documentation about the class, which can be accessed above.

@@ -29,6 +29,10 @@ The include path will be like so:
 #include <hermite/hermite.hpp> // for hermite splines
 ```
 
+### Local installation
+
+To install locally, you can clone the repository, then copy the folders containing the source code (i.e. the `include/hermite` folder) into your codebase.
+
 ## Example usage
 
 Below is example code:
