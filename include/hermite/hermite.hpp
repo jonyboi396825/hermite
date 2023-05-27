@@ -148,7 +148,9 @@ public:
    *
    * @returns If waypoint exists.
    */
-  bool exists(const Pose<D> &waypoint) { return exists(waypoint.getTime()); }
+  bool exists(const Pose<D> &waypoint) const {
+    return exists(waypoint.getTime());
+  }
 
   /**
    * @brief Checks if a waypoint at a certain time exists
@@ -157,7 +159,7 @@ public:
    *
    * @returns If waypoint exists.
    */
-  bool exists(const double time) {
+  bool exists(const double time) const {
     const auto tRounded = roundTime(time);
     return m_waypoints.find(tRounded) != m_waypoints.end();
   }
